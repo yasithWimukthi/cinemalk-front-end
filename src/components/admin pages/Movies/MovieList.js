@@ -15,12 +15,10 @@ const MovieList = () => {
                                 <div className="col-sm-9 col-xs-12 text-right">
                                     <div className="btn_group">
                                         <input type="text" className="form-control" placeholder="Search"/>
-                                        <button className="btn btn-default" title="Reload"><i
+                                        <button className="btn btn-default mx-3" title="Reload"><i
                                             className="fa-solid fa-magnifying-glass"></i></button>
-                                        <button className="btn btn-default" title="Pdf"><i
-                                            className="fa fa-file-pdf"></i></button>
-                                        <button className="btn btn-default" title="Excel"><i
-                                            className="fas fa-file-excel"></i></button>
+                                        <button className="btn btn-default" title="Add new"><i
+                                            className="fa-solid fa-plus"></i> Add Movie</button>
                                     </div>
                                 </div>
                             </div>
