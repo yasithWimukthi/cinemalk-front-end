@@ -1,12 +1,12 @@
 import './App.css';
 import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeCarousel from "./components/pages/HomePage/Carousel/Carousel";
-import MovieList from "./components/admin pages/Movies/MovieList";
-
+import  Nav from "./components/nav_bar/nav"
 function App() {
   return (
     <div >
-      <MovieList/>
+      <Nav/>
     </div>
   );
 }
