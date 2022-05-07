@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import movie1 from '../../../../assets/images/movie1.png'
-import movie2 from '../../../../assets/images/greenbook.jpeg'
+import movie2 from '../../../../assets/images/ant_man_ver5.jpg'
 import movie3 from '../../../../assets/images/whereHands.jpeg'
 
 const ControlledCarousel = () => {
