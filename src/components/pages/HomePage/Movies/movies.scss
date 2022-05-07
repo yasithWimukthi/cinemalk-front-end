@@ -1,5 +1,6 @@
 .section-movies {
     background-color: currentColor;
+    padding: 30px 0 10px 0;
 }
 .movie-grid-wrapper {
     background-color: currentColor;
@@ -25,8 +26,37 @@
 
 .movie-card {
     background-color: #000102;
-    color: white;
+    color: #f5f2f2;
     transition: all .3s ease-out;
-
-
 }
+
+.css-h93ljk-MuiTypography-root {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+.css-1t6e9jv-MuiCardActions-root {
+    justify-content: center;
+    padding: 0 !important;
+    background-color: #b38c0c;
+    border-radius: 5px;
+    color: black;
+    font-weight: 400 !important;
+}
+
+p {
+    font-size: 13px;
+}
+
+@media (min-width: 1400px) {
+    .carousel-wrapper {
+        margin-top: 86px;
+    }
+
+    .carousel {
+        position: relative;
+        padding: 0 300px 0 300px;
+        background-color: black;
+    }
+}
+

@@ -18,8 +18,8 @@ const MovieCard = (props) => {
           <CardMedia className='movie-img'
             component="img"
             alt="movie img"
-            height="250"
-            width="300"
+            height="230"
+            width="310"
             src={props.movieDetails.img_src}
           />
           <CardContent className='movie-card shadow'>
@@ -28,7 +28,7 @@ const MovieCard = (props) => {
               <p>Released Year - {props.movieDetails.year}</p>
             </Typography>
             <CardActions>
-                <Button className='book-ticket-button' size="small">BOOK TICKETS</Button>
+                <Button variant='danger' className='book-ticket-button' size="small">BOOK TICKETS >></Button>
             </CardActions>
           </CardContent>
       </Card>
