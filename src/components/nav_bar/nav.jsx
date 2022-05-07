@@ -26,7 +26,7 @@ const Navigation = () => {
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
             <Container>
                 <Navbar.Brand href="/">
-                    <span className="log">Movie House</span>
+                    <span className="log">Cinema lk</span>
                 </Navbar.Brand>
                 <Navbar.Toggle
                     aria-controls="responsive-navbar-nav"
