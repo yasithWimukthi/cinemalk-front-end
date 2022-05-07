@@ -1,0 +1,32 @@
+.section-movies {
+    background-color: currentColor;
+}
+.movie-grid-wrapper {
+    background-color: currentColor;
+} 
+
+.movie-card-wrapper {
+    padding: 10px;
+}
+
+.movie-img {
+    min-width: 300px;
+    max-width: 300px;
+    background-size: fill;
+    background-position: 50%;
+    position: relative;
+    transition: all .3s ease-out;
+}
+
+.movie-grid-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-card {
+    background-color: #000102;
+    color: white;
+    transition: all .3s ease-out;
+
+
+}
