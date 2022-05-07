@@ -1,0 +1,71 @@
+{
+    "data" : [
+        {   
+            "id": "1",
+            "name": "Avengers - End game",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "2",
+            "name": "Metrix",
+            "year": "2019",
+            "img_src": "https://images.desimartini.com/media/versions/main/movie_jsarea/2019-7/14aa284c-83d1-4877-9854-aaaafcb09ab2_movie_jsarea.jpg?v=1"
+        },
+        {   
+            "id": "3",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "4",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://images.desimartini.com/media/versions/main/movie_jsarea/2019-7/14aa284c-83d1-4877-9854-aaaafcb09ab2_movie_jsarea.jpg?v=1"
+        },
+        {   
+            "id": "5",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "6",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/88290625.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "7",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "8",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/88290625.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "9",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        },
+        {   
+            "id": "10",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://images.desimartini.com/media/versions/main/movie_jsarea/2019-7/14aa284c-83d1-4877-9854-aaaafcb09ab2_movie_jsarea.jpg?v=1"
+        },
+        {   
+            "id": "11",
+            "name": "movie-name",
+            "year": "2019",
+            "img_src": "https://static.toiimg.com/thumb/86063482.cms?width=137&height=195&imgsize="
+        }
+    ]
+    
+}
