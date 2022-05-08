@@ -3,16 +3,24 @@ import './MovieList.css';
 import {useState} from "react";
 import {Option} from "antd/es/mentions";
 import moment from "moment";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const MovieList = () => {
-
+    const MySwal = withReactContent(Swal)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
+    const handleOk = async () => {
+        await MySwal.fire({
+            title: <strong>Good job!</strong>,
+            html: <i>You clicked the button!</i>,
+            icon: 'success'
+        })
         setIsModalVisible(false);
     };
 
@@ -156,7 +164,7 @@ const MovieList = () => {
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading>
                             Submit
                         </Button>
                     </Form.Item>
