@@ -1,7 +1,42 @@
-import { Avatar, Image } from 'antd';
+import { Avatar, Modal,Form, Input, Button, Select,TimePicker} from 'antd';
 import './MovieList.css';
+import {useState} from "react";
+import {Option} from "antd/es/mentions";
+import moment from "moment";
 
 const MovieList = () => {
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    function handleChange(value) {
+        console.log(`selected ${value}`);
+    }
+
+    function onTimeChange(time, timeString) {
+        console.log(time, timeString);
+    }
+
+
     return (
         <div>
             <div className="row">
@@ -17,7 +52,7 @@ const MovieList = () => {
                                         <input type="text" className="form-control" placeholder="Search"/>
                                         <button className="btn btn-default mx-3" title="Reload"><i
                                             className="fa-solid fa-magnifying-glass"></i></button>
-                                        <button className="btn btn-default" title="Add new"><i
+                                        <button className="btn btn-default" title="Add new" onClick={showModal}><i
                                             className="fa-solid fa-plus"></i> Add Movie</button>
                                     </div>
                                 </div>
@@ -57,7 +92,74 @@ const MovieList = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal title="Add Movie" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <Form
+                    name="basic"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 16 }}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Movie Name"
+                        name="name"
+                        tooltip="This is a required field"
+                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Cast"
+                        name="cast"
+                        rules={[{ required: true, message: 'Please input movie cast!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Theater"
+                        name="theater"
+                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                    >
+                        <Select defaultValue="lucy"  onChange={handleChange}>
+                            <Option value="jack">Jack</Option>
+                            <Option value="lucy">Lucy</Option>
+                            <Option value="disabled" disabled>
+                                Disabled
+                            </Option>
+                            <Option value="Yiminghe">yiminghe</Option>
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Time"
+                        name="time"
+                        rules={[{ required: true, message: 'Please input time!' }]}
+                    >
+                        <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Cast"
+                        name="cast"
+                        rules={[{ required: true, message: 'Please input movie cast!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
+
     )
 }
 
