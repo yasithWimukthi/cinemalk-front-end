@@ -43,7 +43,7 @@ const Navigation = () => {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#about'))}>
+                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#movies'))}>
                                 <p /> Movies
                             </Nav.Link>
                         </Nav.Item>
