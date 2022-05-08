@@ -1,3 +1,5 @@
+import '../Movies/MovieList.css';
+
 import { Avatar, Modal,Form, Input, Button, Select,TimePicker,InputNumber,Upload, message} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './MovieList.css';
@@ -7,7 +9,7 @@ import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const MovieList = () => {
+const TheaterDetails = () => {
     const MySwal = withReactContent(Swal)
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
@@ -15,11 +17,11 @@ const MovieList = () => {
     const {imageLoading,setImageLoading} = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [movie, setMovie] = useState({
-        name: '',
-        cast: '',
+        movieName: '',
+        theaterName:'',
         price: null,
-        time: '',
-        theater: ''
+        time: [],
+        seatCount: null
     });
 
     const showAddMovieModal = () => {
@@ -122,7 +124,7 @@ const MovieList = () => {
                         <div className="panel-heading">
                             <div className="row">
                                 <div className="col col-sm-3 col-xs-12">
-                                    <h4 className="title">Movies</h4>
+                                    <h4 className="title">Theaters</h4>
                                 </div>
                                 <div className="col-sm-9 col-xs-12 text-right">
                                     <div className="btn_group">
@@ -138,31 +140,31 @@ const MovieList = () => {
                         <div className="panel-body table-responsive">
                             <table className="table">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Movie Name</th>
-                                        <th>Theater</th>
-                                        <th>Show Time</th>
-                                        <th>Description</th>
-                                        <th>Cast</th>
-                                        <th>Actions</th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Movie Name</th>
+                                    <th>Theater</th>
+                                    <th>Show Time</th>
+                                    <th>Seat Count</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td> <Avatar src="https://joeschmoe.io/api/v1/random" />Vincent Williamson</td>
-                                        <td>31</td>
-                                        <td>iOS Developer</td>
-                                        <td>Sinaai-Waas</td>
-                                        <td>cast</td>
-                                        <td>
-                                            <ul className="action-list">
-                                                <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
-                                                <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td> <Avatar src="https://joeschmoe.io/api/v1/random" />Vincent Williamson</td>
+                                    <td>31</td>
+                                    <td>iOS Developer</td>
+                                    <td>Sinaai-Waas</td>
+                                    <td>cast</td>
+                                    <td>
+                                        <ul className="action-list">
+                                            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
+                                            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -332,4 +334,4 @@ const MovieList = () => {
     )
 }
 
-export default MovieList;
+export default TheaterDetails
