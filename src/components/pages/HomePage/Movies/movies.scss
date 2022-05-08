@@ -1,0 +1,86 @@
+.section-movies {
+    background-color: currentColor;
+    padding: 30px 0 10px 0;
+}
+.movie-grid-wrapper {
+    background-color: currentColor;
+} 
+
+.movie-card-wrapper {
+    padding: 15px;
+}
+
+.movie-img {
+    min-width: 310px;
+    height: 230px;
+    background-size: fill;
+    background-position: 50%;
+    position: relative;
+    transition: all .3s ease-out;
+}
+
+.movie-grid-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-card {
+    background-color: #000102;
+    color: #f5f2f2;
+    transition: all .3s ease-out;
+}
+
+.css-h93ljk-MuiTypography-root {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+.css-1t6e9jv-MuiCardActions-root {
+    justify-content: center;
+    padding: 0 !important;
+    background-color: #b38c0c;
+    border-radius: 5px;
+    color: black;
+    font-weight: 400 !important;
+}
+
+p {
+    font-size: 13px;
+}
+
+@media (min-width: 1400px) {
+    .carousel-wrapper {
+        margin-top: 86px;
+    }
+
+    .carousel {
+        position: relative;
+        padding: 0 300px 0 300px;
+        background-color: black;
+    }
+}
+
+@media (max-width: 1400px) {
+    .movie-img {
+        min-width: 300px;
+        height: 170px;
+        background-size: fill;
+        background-position: 50%;
+        position: relative;
+        transition: all .3s ease-out;
+    }
+}
+
+.book-ticket-button {
+ font-weight: 600 !important; 
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    // background-color: #b38c0c;
+    border-radius: 1px solid 50%;
+    padding: 5px;
+}
+
+.css-o69gx8-MuiCardMedia-root {
+    object-fit: fill !important;
+}
