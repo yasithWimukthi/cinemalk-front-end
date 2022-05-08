@@ -10,7 +10,14 @@ const MovieList = () => {
     const MySwal = withReactContent(Swal)
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [movie, setMovie] = useState({
+        name: '',
+        cart: '',
+        price: null,
+        time: '',
+        theater: ''
+    });
 
     const showAddMovieModal = () => {
         setIsAddMovieModalVisible(true);
@@ -38,7 +45,13 @@ const MovieList = () => {
     };
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        setMovie({
+            name: values.name,
+            cast: values.cast,
+            price: values.price,
+            theater: values.theater
+        })
+        console.log(movie)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -50,9 +63,35 @@ const MovieList = () => {
     }
 
     function onTimeChange(time, timeString) {
-        console.log(time, timeString);
+        setMovie({
+            ...movie,
+            time: `${timeString[0]}-${timeString[1]}`
+        })
     }
 
+    const onInputChange = (e) => {
+        console.log(e)
+    }
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    }
 
     return (
         <div>
@@ -99,7 +138,7 @@ const MovieList = () => {
                                         <td>
                                             <ul className="action-list">
                                                 <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
-                                                <li><a href="#" data-tip="delete"><i className="fa fa-trash"></i></a></li>
+                                                <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -119,14 +158,21 @@ const MovieList = () => {
                     wrapperCol={{ span: 16 }}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={{
+                        ["name"]: movie.name,
+                        ["cast"]: movie.cast,
+                        ["theater"]: movie.theater,
+                        ["time"]: movie.time,
+                        ["price"]: movie.price,
+                    }}
                 >
                     <Form.Item
                         label="Movie Name"
                         name="name"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Input />
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
@@ -173,7 +219,7 @@ const MovieList = () => {
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit" loading shape="round" size="large">
+                        <Button type="primary" htmlType="submit" loading={loading} shape="round" size="large">
                             Submit
                         </Button>
                     </Form.Item>
@@ -250,7 +296,6 @@ const MovieList = () => {
                 </Form>
             </Modal>
         </div>
-
     )
 }
 
