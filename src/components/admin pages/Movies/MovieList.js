@@ -1,4 +1,4 @@
-import { Avatar, Modal,Form, Input, Button, Select,TimePicker} from 'antd';
+import { Avatar, Modal,Form, Input, Button, Select,TimePicker,InputNumber} from 'antd';
 import './MovieList.css';
 import {useState} from "react";
 import {Option} from "antd/es/mentions";
@@ -115,6 +115,7 @@ const MovieList = () => {
                     <Form.Item
                         label="Cast"
                         name="cast"
+                        tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie cast!' }]}
                     >
                         <Input />
@@ -123,6 +124,7 @@ const MovieList = () => {
                     <Form.Item
                         label="Theater"
                         name="theater"
+                        tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
                         <Select defaultValue="lucy"  onChange={handleChange}>
@@ -138,17 +140,19 @@ const MovieList = () => {
                     <Form.Item
                         label="Time"
                         name="time"
+                        tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input time!' }]}
                     >
                         <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                     </Form.Item>
 
                     <Form.Item
-                        label="Cast"
-                        name="cast"
-                        rules={[{ required: true, message: 'Please input movie cast!' }]}
+                        label="Ticket Price"
+                        name="price"
+                        tooltip="This is a required field"
+                        rules={[{ required: true, message: 'Please input ticket price!' }]}
                     >
-                        <Input />
+                        <InputNumber prefix="$" style={{ width: '100%' }} />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
