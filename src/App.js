@@ -8,7 +8,7 @@ import TheaterDetails from "./components/admin pages/TheaterDetails/TheaterDetai
 function App() {
   return (
     <div >
-      <TheaterDetails/>
+      <MovieList/>
     </div>
   );
 }

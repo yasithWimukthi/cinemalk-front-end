@@ -2,12 +2,11 @@ import { Avatar, Modal,Form, Input, Button, Select,TimePicker,InputNumber,Upload
 import { UploadOutlined } from '@ant-design/icons';
 import './MovieList.css';
 import {useState} from "react";
-import {Option} from "antd/es/mentions";
-import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const MovieList = () => {
+    const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
@@ -17,9 +16,7 @@ const MovieList = () => {
     const [movie, setMovie] = useState({
         name: '',
         cast: '',
-        price: null,
-        time: '',
-        theater: ''
+        description: '',
     });
 
     const showAddMovieModal = () => {
@@ -51,8 +48,7 @@ const MovieList = () => {
         setMovie({
             name: values.name,
             cast: values.cast,
-            price: values.price,
-            theater: values.theater
+            description: values.description
         })
         console.log(movie)
     };
@@ -116,6 +112,7 @@ const MovieList = () => {
 
     return (
         <div>
+            {/*movies table*/}
             <div className="row">
                 <div className="col-12">
                     <div className="panel">
@@ -141,8 +138,6 @@ const MovieList = () => {
                                     <tr>
                                         <th>#</th>
                                         <th>Movie Name</th>
-                                        <th>Theater</th>
-                                        <th>Show Time</th>
                                         <th>Description</th>
                                         <th>Cast</th>
                                         <th>Actions</th>
@@ -152,10 +147,8 @@ const MovieList = () => {
                                     <tr>
                                         <td>1</td>
                                         <td> <Avatar src="https://joeschmoe.io/api/v1/random" />Vincent Williamson</td>
-                                        <td>31</td>
-                                        <td>iOS Developer</td>
-                                        <td>Sinaai-Waas</td>
-                                        <td>cast</td>
+                                        <td>Description</td>
+                                        <td>Cast</td>
                                         <td>
                                             <ul className="action-list">
                                                 <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
@@ -170,6 +163,7 @@ const MovieList = () => {
                 </div>
             </div>
 
+            {/*Add movie modal*/}
             <Modal title="Add Movie" visible={isAddMovieModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
                 <Form
                     name="basic"
@@ -182,9 +176,7 @@ const MovieList = () => {
                     initialValues={{
                         ["name"]: movie.name,
                         ["cast"]: movie.cast,
-                        ["theater"]: movie.theater,
-                        ["time"]: movie.time,
-                        ["price"]: movie.price,
+                        ["description"]: movie.description,
                     }}
                 >
                     <Form.Item
@@ -206,37 +198,12 @@ const MovieList = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theater"
+                        label="Description"
+                        name="description"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please input description!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Time"
-                        name="time"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input time!' }]}
-                    >
-                        <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
@@ -257,7 +224,9 @@ const MovieList = () => {
                     </Form.Item>
                 </Form>
             </Modal>
+            {/*Add movie modal end*/}
 
+            {/*Edit movie modal*/}
             <Modal title="Edit Movie" visible={isEditMovieModalVisible} onOk={handleOk} onCancel={handleEditMovieModalCancel} footer={null}>
                 <Form
                     name="basic"
@@ -272,9 +241,9 @@ const MovieList = () => {
                         label="Movie Name"
                         name="name"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Input />
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
@@ -287,47 +256,33 @@ const MovieList = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theater"
+                        label="Description"
+                        name="description"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please input description!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
-                        label="Time"
-                        name="time"
+                        label="Movie Banner"
+                        name="banner"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input time!' }]}
+                        rules={[{ required: true, message: 'Please upload an image!' }]}
                     >
-                        <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                        <Upload {...props}>
+                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        </Upload>
                     </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
-                    </Form.Item>
-
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit" loading shape="round" size="large">
+                        <Button type="primary" htmlType="submit" loading={loading} shape="round" size="large">
                             Submit
                         </Button>
                     </Form.Item>
                 </Form>
             </Modal>
+            {/*Edit movie modal end*/}
         </div>
     )
 }

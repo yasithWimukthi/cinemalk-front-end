@@ -18,7 +18,7 @@ const TheaterDetails = () => {
         movieName: '',
         theaterName:'',
         price: null,
-        time: [],
+        time: '',
         seatCount: null
     });
 
@@ -49,10 +49,11 @@ const TheaterDetails = () => {
 
     const onFinish = (values) => {
         setMovie({
-            name: values.name,
-            cast: values.cast,
+            movieName: values.movieName,
+            theaterName: values.theaterName,
             price: values.price,
-            theater: values.theater
+            time: values.time,
+            seatCount: values.seatCount
         })
         console.log(movie)
     };
@@ -70,10 +71,6 @@ const TheaterDetails = () => {
             ...movie,
             time: `${timeString[0]}-${timeString[1]}`
         })
-    }
-
-    const onInputChange = (e) => {
-        console.log(e)
     }
 
 
