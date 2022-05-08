@@ -3,9 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import './nav.scss';
+import {useNavigate} from "react-router";
 
 
 const Navigation = () => {
+    const navigate = useNavigate()
     const [expand, setexpand] = React.useState(false);
     const [pathstate, setpathstate] = React.useState('#home');
 
@@ -21,6 +23,11 @@ const Navigation = () => {
             element.scrollIntoView();
         }
     }, [pathstate]);
+
+
+    const login =()=>{
+        navigate("/login")
+    }
 
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
@@ -53,7 +60,7 @@ const Navigation = () => {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <button className="logBtn">Login</button>
+                            <button className="logBtn" onClick={login}>Login</button>
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
