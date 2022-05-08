@@ -1,4 +1,4 @@
-import { Avatar, Modal,Form, Input, Button, Select,TimePicker,InputNumber,Upload, message} from 'antd';
+import { Avatar, Modal,Form, Input, Button, Upload, message} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './MovieList.css';
 import {useState} from "react";
