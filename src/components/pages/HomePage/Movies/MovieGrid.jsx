@@ -5,7 +5,7 @@ import MovieCard from "./MovieCard";
 import Movies from "./movies.json";
 
 const MovieGrid = () => {
-    const movies = Movies.data;
+    const movies = Movies;
 
     return (
         <>
