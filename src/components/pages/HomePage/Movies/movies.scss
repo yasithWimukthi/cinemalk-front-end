@@ -84,3 +84,63 @@ p {
 .css-o69gx8-MuiCardMedia-root {
     object-fit: fill !important;
 }
+
+//styles for modal
+.movie-booking-modal {
+    .ant-modal-content {
+        background-color: #000102;
+    }
+    .ant-modal-footer {
+        border: none !important;
+    }
+    .ant-modal-header {
+        background-color: #000102;
+        border-bottom: 1px solid #ffc107 !important;
+    }
+    .ant-modal-mask {
+        background-color: #686868b5 !important;
+        z-index: 0 !important;
+    }
+    .anticon svg {
+        fill: #ffc107;
+    }
+    .ant-btn-primary {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: black;
+    }
+    .ant-btn-default {
+        background-color: transparent;
+        color: khaki;
+        border-color: khaki;
+    }
+    .ant-modal-body {
+        padding: 0 0 24px 0;
+    }
+    .ant-modal {
+        max-width: 70% !important;
+        min-width: 70%;
+    }
+}
+
+// styles for input fields set in movie-booking modal
+.movie-name-label {
+    text-align: center;
+}
+.input-stack {
+ padding: 15px 20px 15px 20px;
+}
+.css-1p5q5e5-MuiStack-root {
+    background-color: khaki;
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    background-color: beige;
+    border-radius: 5px;
+}
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+    background-color: beige;
+}
+
+pre {
+    color: white;
+}
