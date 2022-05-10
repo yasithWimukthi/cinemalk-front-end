@@ -28,12 +28,10 @@ export default function MovieBooking(props) {
 
   const handleDateOnChange = (e) => {
     setBookingDetails({ ...bookingDetails, bookingDate: e });
-    console.log("b detaisl", bookingDetails);
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setBookingDetails({ ...bookingDetails, [name]: value });
-    console.log("b detaisl", bookingDetails);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,10 +59,8 @@ export default function MovieBooking(props) {
   };
 
   React.useEffect(() => {
-    console.log("errr", formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       props.closeModal();
-      console.log("formvalues", bookingDetails);
     }
   }, [formErrors]);
 
