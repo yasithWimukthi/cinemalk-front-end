@@ -30,11 +30,12 @@ function App() {
             <Route path="/" element={<Layout component={<Home/>} />} />
             <Route path="/login" element={<Layout component={<Login/>} />} />
             <Route path="/register" element={<Layout component={<Register/>} />} />
-            <Route path="/movies" element={<Layout component={<MovieList/>} />} />
-            <Route path="/theaters" element={<Layout component={<Theaters/>} />} />
-            <Route path="/showingMovies" element={<Layout component={<TheaterDetails/>} />} />
+            <Route path="/movies" element={<MovieList/>} />
+            <Route path="/theaters" element={<Theaters/> } />
+            <Route path="/showingMovies" element={<TheaterDetails/>}  />
         </Routes>
       </BrowserRouter>
+
     </>
   );
 }

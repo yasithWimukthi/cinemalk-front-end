@@ -108,7 +108,7 @@ const Theaters = () => {
                                         <button className="btn btn-default mx-3" title="Reload"><i
                                             className="fa-solid fa-magnifying-glass"></i></button>
                                         <button className="btn btn-default" title="Add new" onClick={showAddTheaterModal}><i
-                                            className="fa-solid fa-plus"></i> Add Movie</button>
+                                            className="fa-solid fa-plus"></i> Add Theater</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,11 +128,10 @@ const Theaters = () => {
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Vincent Williamson</td>
                                     <td>Theater name</td>
-                                    <td>Show Time</td>
+                                    <td>Location</td>
                                     <td>Seat Count</td>
-                                    <td>Price</td>
+                                    <td>Open Time</td>
                                     <td>
                                         <ul className="action-list">
                                             <li><a href="#" data-tip="edit" onClick={showEditTheaterModal}><i className="fa fa-edit"></i></a></li>
@@ -149,7 +148,7 @@ const Theaters = () => {
             {/*theaters table end*/}
 
             {/*add movie modal*/}
-            <Modal title="Add Movie" visible={isAddTheaterModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+            <Modal title="Add Theater" visible={isAddTheaterModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -211,7 +210,7 @@ const Theaters = () => {
             {/*add movie modal end*/}
 
             {/*add edit modal*/}
-            <Modal title="Edit Movie" visible={isEditTheaterModalVisible} onOk={handleOk} onCancel={handleEditTheaterModalCancel} footer={null}>
+            <Modal title="Edit Theater" visible={isEditTheaterModalVisible} onOk={handleOk} onCancel={handleEditTheaterModalCancel} footer={null}>
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
