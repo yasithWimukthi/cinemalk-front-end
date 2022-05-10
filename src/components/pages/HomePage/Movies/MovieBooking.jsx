@@ -14,10 +14,7 @@ import Select from "@mui/material/Select";
 import theaters from "./movieTheaters.json";
 
 export default function MovieBooking(props) {
-  //   const [dateVal, setValue] = React.useState();
-  //   const [theater, setTheater] = React.useState("");
-  //   const [noOfTickets, setNoOfTickets] = React.useState(0);
-  //   const [showTime, setShowTime] = React.useState("");
+
   const [bookingDetails, setBookingDetails] = React.useState({
     movieImg: props.imgSrc,
     movieName: props.name,
@@ -71,43 +68,6 @@ export default function MovieBooking(props) {
     }
   }, [formErrors]);
 
-  //   const handleDateChange = (newValue) => {
-  //     console.log("date", newValue, "dkdk");
-  //     setValue(newValue);
-  //   };
-
-  //   const handleChangeOfTheter = (event) => {
-  //     setTheater(event.target.value);
-  //     console.log("selected: ", event.target.value);
-  //   };
-  //   const handleShowTimeInput = (event) => {
-  //     console.log("time", event.target.value);
-  //     setShowTime(event.target.value);
-  //   };
-  //   const handleNoOfTickets = (event) => {
-  //     console.log("name:", event.target.value);
-  //     setNoOfTickets(event.target.value);
-  //   };
-
-  //handle 'AddToCart' button click
-  //   let newBookingDetails = {
-  //     movieImg: props.imgSrc,
-  //     movieName: props.name,
-  //     bookingDate: dateVal,
-  //     theater: theater,
-  //     bookedTime: showTime,
-  //     noOfTickets: noOfTickets,
-  //   };
-  //     const handleAddToCart = () => {
-  //         setFormError(true); //set form error visibility true
-  //     setBookingDetails({
-  //       ...bookingDetails,
-  //       ...newBookingDetails,
-  //     });
-  //     console.log("details: ", bookingDetails);
-  //     props.closeModal();
-  //   };
-
   return (
     <div>
       <Modal
@@ -125,7 +85,6 @@ export default function MovieBooking(props) {
           </Button>,
         ]}
       >
-        {/* <pre>{ JSON.stringify(bookingDetails, undefined, 2)}</pre> */}
         <Card>
           <CardMedia
             className="movie-img"
