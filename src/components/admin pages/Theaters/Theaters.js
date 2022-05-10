@@ -7,11 +7,12 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const Theaters = () => {
+    const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
     const [isAddTheaterModalVisible, setIsAddTheaterModalVisible] = useState(false);
     const [isEditTheaterModalVisible, setIsEditTheaterModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [movie, setMovie] = useState({
+    const [theater, setTheater] = useState({
         theaterName: '',
         location:'',
         seatCount: null,
@@ -44,14 +45,13 @@ const Theaters = () => {
     };
 
     const onFinish = (values) => {
-        setMovie({
-            movieName: values.movieName,
+        setTheater({
             theaterName: values.theaterName,
-            price: values.price,
-            time: values.time,
+            location: values.location,
+            openTime: values.openTime,
             seatCount: values.seatCount
         })
-        console.log(movie)
+        console.log(theater)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -63,9 +63,9 @@ const Theaters = () => {
     }
 
     function onTimeChange(time, timeString) {
-        setMovie({
-            ...movie,
-            time: `${timeString[0]}-${timeString[1]}`
+        setTheater({
+            ...theater,
+            openTime: `${timeString[0]}-${timeString[1]}`
         })
     }
 
@@ -159,43 +159,28 @@ const Theaters = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     initialValues={{
-                        ["movieName"]: movie.name,
-                        ["theaterName"]: movie.theaterName,
-                        ["seatCount"]: movie.seatCount,
-                        ["time"]: movie.time,
-                        ["price"]: movie.price,
+                        ["theaterName"]: theater.theaterName,
+                        ["seatCount"]: theater.seatCount,
+                        ["openTime"]: theater.openTime,
+                        ["location"]: theater.location,
                     }}
                 >
                     <Form.Item
-                        label="Movie Name"
-                        name="movieName"
+                        label="Theater Name"
+                        name="theaterName"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input movie name!' }]}
+                        rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theaterName"
+                        label="Location"
+                        name="location"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
@@ -208,21 +193,12 @@ const Theaters = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Time"
-                        name="time"
+                        label="Open Time"
+                        name="openTime"
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input time!' }]}
                     >
                         <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -246,35 +222,21 @@ const Theaters = () => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Movie Name"
-                        name="movieName"
+                        label="Theater Name"
+                        name="theaterName"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input movie name!' }]}
+                        rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theaterName"
+                        label="Location"
+                        name="location"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
@@ -287,23 +249,13 @@ const Theaters = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Time"
-                        name="time"
+                        label="Open Time"
+                        name="openTime"
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input time!' }]}
                     >
                         <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                     </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
-                    </Form.Item>
-
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit" loading shape="round" size="large">
@@ -317,4 +269,4 @@ const Theaters = () => {
     )
 }
 
-export default Theaters
+export default Theaters;

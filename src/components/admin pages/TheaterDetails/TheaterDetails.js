@@ -1,7 +1,6 @@
 import './MovieList.css';
 
-import {Avatar, Modal, Form, Input, Button, Select, TimePicker, InputNumber, Upload, message, Space} from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Modal, Form, Button, Select, TimePicker, InputNumber} from 'antd';
 import './MovieList.css';
 import {useState} from "react";
 import {Option} from "antd/es/mentions";
