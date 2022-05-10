@@ -1,7 +1,5 @@
 import React from "react";
-import HomeCarousel from "../../../components/pages/HomePage/Carousel/Carousel";
 import Navigation from "../../nav_bar/nav";
-import MovieCard from "./Movies/MovieCard";
 import Footer from "../../footer/footer";
 import MovieGrid from "./Movies/MovieGrid";
 import ControlledCarousel from "./Carousel/carousel2";
