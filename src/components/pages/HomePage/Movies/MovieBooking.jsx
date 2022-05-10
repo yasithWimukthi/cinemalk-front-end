@@ -24,7 +24,7 @@ export default function MovieBooking(props) {
     noOfTickets: "",
   });
   const [formErrors, setFormErrors] = React.useState({});
-  const [isSubmit, setIsSubmit] = React.useState(false);
+  const [isSubmit, setIsSubmit] = React.useState(false); 
 
   const handleDateOnChange = (e) => {
     setBookingDetails({ ...bookingDetails, bookingDate: e });
@@ -58,7 +58,8 @@ export default function MovieBooking(props) {
     return errors;
   };
 
-  React.useEffect(() => {
+    React.useEffect(() => {
+    //once AddToCart btn is clicked, the form will only be closed - if errors are resolved && form is set as submitted
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       props.closeModal();
     }
