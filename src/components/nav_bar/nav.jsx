@@ -2,7 +2,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import './nav.scss';
+import { Link } from 'react-router-dom';
 
 
 const Navigation = () => {
@@ -14,6 +16,8 @@ const Navigation = () => {
             setpathstate('#home');
         }
     };
+
+    let itemCount = 0;
 
     React.useEffect(() => {
         const element = document.getElementById(pathstate);
@@ -51,6 +55,9 @@ const Navigation = () => {
                             <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#faq'))}>
                                 <p />  Theaters
                             </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Link to="/cart"><button className="cart-icon"><ShoppingCartOutlinedIcon /></button></Link>
                         </Nav.Item>
                         <Nav.Item>
                             <button className="logBtn">Login</button>
