@@ -84,10 +84,9 @@ export default function MovieBooking(props) {
       >
         <Card>
           <CardMedia
-            className="movie-img"
+            className="booked-movie-img"
             component="img"
             alt="movie img"
-            height="2780px"
             src={props.imgSrc}
           />
           
@@ -161,7 +160,8 @@ export default function MovieBooking(props) {
                 label="No of tickets"
                 type="number"
                 onChange={handleOnChange}
-                error={formErrors.tickets}
+                              error={formErrors.tickets}
+                              InputProps={{ inputProps: { min: 0, max: 10 } }}
               />
               {/* <span>{formErrors.tickets}</span> */}
             </Stack>

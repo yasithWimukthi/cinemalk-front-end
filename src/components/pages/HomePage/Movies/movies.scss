@@ -12,7 +12,16 @@
 
 .movie-img {
     min-width: 310px;
-    height: 230px;
+    height: 250px;
+    background-size: fill;
+    background-position: 50%;
+    position: relative;
+    transition: all .3s ease-out;
+}
+
+.booked-movie-img {
+    min-width: 310px;
+    height: 280px;
     background-size: fill;
     background-position: 50%;
     position: relative;
@@ -33,6 +42,8 @@
 .css-h93ljk-MuiTypography-root {
     font-size: 18px !important;
     font-weight: 600 !important;
+    //fixed-height for movie description
+    min-height: 66px; 
 }
 
 .css-1t6e9jv-MuiCardActions-root {

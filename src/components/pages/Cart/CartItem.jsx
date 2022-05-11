@@ -22,18 +22,12 @@ const CartItem = () => {
             <Col sm={9} className="cart-card-right">
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Movie Name
+                  Movie Name - Bohemian Rhapsody
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  No of tickets: x
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Theater: One Galle Face
-                              </Typography>
-                              <Typography variant="body2" color="text.secondary">
-                  Date: 12/02/2022
-                              </Typography>
-                              <button className="remove-from-cart-btn">Remove</button>
+                <Typography variant="body2">No of tickets: x</Typography>
+                <Typography variant="body2">Theater: One Galle Face</Typography>
+                <Typography variant="body2">Date: 12/02/2022</Typography>
+                <button className="remove-from-cart-btn">Remove</button>
               </CardContent>
             </Col>
           </Row>
