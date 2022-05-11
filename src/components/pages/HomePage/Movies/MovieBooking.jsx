@@ -14,7 +14,6 @@ import Select from "@mui/material/Select";
 import theaters from "./movieTheaters.json";
 
 export default function MovieBooking(props) {
-
   const [bookingDetails, setBookingDetails] = React.useState({
     movieImg: props.imgSrc,
     movieName: props.name,
@@ -24,7 +23,7 @@ export default function MovieBooking(props) {
     noOfTickets: "",
   });
   const [formErrors, setFormErrors] = React.useState({});
-  const [isSubmit, setIsSubmit] = React.useState(false); 
+  const [isSubmit, setIsSubmit] = React.useState(false);
 
   const handleDateOnChange = (e) => {
     setBookingDetails({ ...bookingDetails, bookingDate: e });
@@ -58,7 +57,7 @@ export default function MovieBooking(props) {
     return errors;
   };
 
-    React.useEffect(() => {
+  React.useEffect(() => {
     //once AddToCart btn is clicked, the form will only be closed - if errors are resolved && form is set as submitted
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       props.closeModal();
@@ -89,15 +88,15 @@ export default function MovieBooking(props) {
             alt="movie img"
             src={props.imgSrc}
           />
-          
+
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <Stack spacing={2} className="input-stack">
-                      <div className="movie-name-label" >
-            <h5>{"Movie - " + props.name}</h5>
-            {props.genres.map((genre) => (
-              <span key={props.genres.indexOf(genre)}>{genre + ", "}</span>
-            ))}
-          </div>
+            <Stack spacing={2} className="input-stack">
+              <div className="movie-name-label">
+                <h5>{"Movie - " + props.name}</h5>
+                {props.genres.map((genre) => (
+                  <span key={props.genres.indexOf(genre)}>{genre + ", "}</span>
+                ))}
+              </div>
               <DesktopDatePicker
                 name="bookingDate"
                 label="Date of booking"
@@ -160,8 +159,8 @@ export default function MovieBooking(props) {
                 label="No of tickets"
                 type="number"
                 onChange={handleOnChange}
-                              error={formErrors.tickets}
-                              InputProps={{ inputProps: { min: 0, max: 10 } }}
+                error={formErrors.tickets}
+                InputProps={{ inputProps: { min: 0, max: 10 } }}
               />
               {/* <span>{formErrors.tickets}</span> */}
             </Stack>
