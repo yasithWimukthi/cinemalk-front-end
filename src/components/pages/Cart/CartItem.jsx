@@ -8,10 +8,10 @@ import { Card } from "@mui/material";
 const CartItem = () => {
   return (
     <>
-      <Container>
+      <Container className="cart-item-card-wrap">
         <Card className="cart-item-card">
           <Row>
-            <Col sm>
+            <Col sm={3}>
               <CardMedia
                 component="img"
                 height="200"
@@ -19,16 +19,21 @@ const CartItem = () => {
                 alt="green iguana"
               />
             </Col>
-            <Col sm>
+            <Col sm={9} className="cart-card-right">
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  Movie Name
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  No of tickets: x
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Theater: One Galle Face
                               </Typography>
-                              <button>Remove from cart</button>
+                              <Typography variant="body2" color="text.secondary">
+                  Date: 12/02/2022
+                              </Typography>
+                              <button className="remove-from-cart-btn">Remove</button>
               </CardContent>
             </Col>
           </Row>
