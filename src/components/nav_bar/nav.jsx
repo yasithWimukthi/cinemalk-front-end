@@ -67,7 +67,6 @@ const Navigation = () => {
                             <Link to="/cart"><button className="cart-icon"><ShoppingCartOutlinedIcon /></button></Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <button className="logBtn">Login</button>
                             <button className="logBtn" onClick={login}>Login</button>
                         </Nav.Item>
                     </Nav>
