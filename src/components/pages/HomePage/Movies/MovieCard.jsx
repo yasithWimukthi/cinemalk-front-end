@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Navigation from "../../../nav_bar/nav";
+import MovieBooking from "./MovieBooking";
 import "./movies.scss";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -33,6 +34,18 @@ const MovieCard = (props) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const [bookingDetailsModalIsOpen, setModalIsOpen] = React.useState(false);
+
+  //this will be executed when 'bookTickets' btn of a movie card is clicked
+  const handleBookTicketBtn = () => {
+    setModalIsOpen(true);
+  }
+
+  //this will be executed inside MOdal component when 'Cancel' or 'OK' btn is clicked to close the modal
+  const closeBookingModal = () => {
+    setModalIsOpen(false);
+  }
 
   return (
     <>
@@ -59,6 +72,7 @@ const MovieCard = (props) => {
             </Typography>
             <CardActions>
               <Button
+                onClick={handleBookTicketBtn}
                 variant="danger"
                 className="book-ticket-button"
                 size="small"
@@ -83,6 +97,7 @@ const MovieCard = (props) => {
           </CardContent>
         </Card>
       </section>
+      {bookingDetailsModalIsOpen && <MovieBooking closeModal={closeBookingModal} imgSrc={props.movieDetails.poster} id={props.movieDetails.id} name={props.movieDetails.title} genres={props.movieDetails.genres} />}
     </>
   );
 };

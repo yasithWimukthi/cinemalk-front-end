@@ -1,4 +1,6 @@
 import React from "react";
+import Navigation from "../../nav_bar/nav";
+import Footer from "../../footer/footer";
 import MovieGrid from "./Movies/MovieGrid";
 import ControlledCarousel from "./Carousel/carousel2";
 
