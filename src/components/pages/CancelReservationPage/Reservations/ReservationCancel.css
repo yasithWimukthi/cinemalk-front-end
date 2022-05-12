@@ -1,0 +1,36 @@
+.ResCancelPage {
+  padding: 12px;
+  background-color: rgb(45, 43, 43);
+  margin-top: 60px;
+  min-height: 600px;
+}
+
+.ResCancelHeader h4 {
+  margin-top: 30px;
+  color: rgb(245, 225, 0);
+}
+.ResCancelPage td,
+.ResCancelPage th {
+  border: 2px solid #ddd;
+  padding: 8px;
+  color: rgb(255, 255, 255);
+}
+
+.ResCancelPage tr {
+  background-color: rgba(221, 221, 221, 0.516);
+}
+.ResCancelPage tr:nth-child(even) {
+  background-color: #f2f2f281;
+}
+
+.ResCancelPage tr:hover {
+  background-color: rgb(173, 174, 148);
+}
+
+.ResCancelPage th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0a0a0a;
+  color: white;
+}
