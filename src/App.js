@@ -27,10 +27,9 @@ function App() {
   return (
     < >
       <BrowserRouter>
-
+      <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/" element={<Layout component={<Home/>} />} />
             <Route path="/login" element={<Layout component={<Login/>} />} />
             <Route path="/register" element={<Layout component={<Register/>} />} />
             <Route path="/movies" element={<MovieList/>} />

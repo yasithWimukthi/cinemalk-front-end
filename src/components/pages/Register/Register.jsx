@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as Yup from "yup";
+import axios from 'axios';
 
 
 const FlexBox = styled(Box)(() => ({
@@ -51,16 +52,6 @@ const InnerTheme = createTheme({
 });
 
 
-
-
-
-
-
-
-
-
-
-
 const validationSchema = yup.object({
     firstName:yup
         .string('Enter your first name')
@@ -82,10 +73,7 @@ const validationSchema = yup.object({
 });
 
 
-
-
 const Register = () => {
-
 
     const formik = useFormik({
         initialValues: {
@@ -99,9 +87,23 @@ const Register = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             alert(JSON.stringify(values, null, 2));
+            axios.post('http://localhost:4000/api/auth/signup', {
+                email: values.email,
+                password: values.password,
+                passwordConfirmation: values.passConf,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                mobile: values.mobile,
+                type:'user'
+            })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
     });
-
 
 
 
