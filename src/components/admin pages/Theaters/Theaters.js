@@ -1,32 +1,30 @@
 import './MovieList.css';
-
-import { Modal, Form, Button, Select, TimePicker, InputNumber} from 'antd';
-import './MovieList.css';
+import {Modal, Form, Input, Button, Select, TimePicker, InputNumber} from 'antd';
 import {useState} from "react";
 import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const TheaterDetails = () => {
+const Theaters = () => {
+    const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
-    const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
-    const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
+    const [isAddTheaterModalVisible, setIsAddTheaterModalVisible] = useState(false);
+    const [isEditTheaterModalVisible, setIsEditTheaterModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [movie, setMovie] = useState({
-        movieName: '',
-        theaterName:'',
-        price: null,
-        time: '',
-        seatCount: null
+    const [theater, setTheater] = useState({
+        theaterName: '',
+        location:'',
+        seatCount: null,
+        openTime: '',
     });
 
-    const showAddMovieModal = () => {
-        setIsAddMovieModalVisible(true);
+    const showAddTheaterModal = () => {
+        setIsAddTheaterModalVisible(true);
     };
 
-    const showEditMovieModal = () => {
-        setIsEditMovieModalVisible(true);
+    const showEditTheaterModal = () => {
+        setIsEditTheaterModalVisible(true);
     };
 
     const handleOk = async () => {
@@ -35,26 +33,25 @@ const TheaterDetails = () => {
             html: <i>You clicked the button!</i>,
             icon: 'success'
         })
-        setIsAddMovieModalVisible(false);
+        setIsAddTheaterModalVisible(false);
     };
 
     const handleCancel = () => {
-        setIsAddMovieModalVisible(false);
+        setIsAddTheaterModalVisible(false);
     };
 
-    const handleEditMovieModalCancel = () => {
-        setIsEditMovieModalVisible(false);
+    const handleEditTheaterModalCancel = () => {
+        setIsEditTheaterModalVisible(false);
     };
 
     const onFinish = (values) => {
-        setMovie({
-            movieName: values.movieName,
+        setTheater({
             theaterName: values.theaterName,
-            price: values.price,
-            time: values.time,
+            location: values.location,
+            openTime: values.openTime,
             seatCount: values.seatCount
         })
-        console.log(movie)
+        console.log(theater)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -66,9 +63,9 @@ const TheaterDetails = () => {
     }
 
     function onTimeChange(time, timeString) {
-        setMovie({
-            ...movie,
-            time: `${timeString[0]}-${timeString[1]}`
+        setTheater({
+            ...theater,
+            openTime: `${timeString[0]}-${timeString[1]}`
         })
     }
 
@@ -110,8 +107,8 @@ const TheaterDetails = () => {
                                         <input type="text" className="form-control" placeholder="Search"/>
                                         <button className="btn btn-default mx-3" title="Reload"><i
                                             className="fa-solid fa-magnifying-glass"></i></button>
-                                        <button className="btn btn-default" title="Add new" onClick={showAddMovieModal}><i
-                                            className="fa-solid fa-plus"></i> Add Movie</button>
+                                        <button className="btn btn-default" title="Add new" onClick={showAddTheaterModal}><i
+                                            className="fa-solid fa-plus"></i> Add Theater</button>
                                     </div>
                                 </div>
                             </div>
@@ -121,25 +118,23 @@ const TheaterDetails = () => {
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Movie Name</th>
                                     <th>Theater</th>
-                                    <th>Show Time</th>
+                                    <th>Location</th>
                                     <th>Seat Count</th>
-                                    <th>Price</th>
+                                    <th>Open Time</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Vincent Williamson</td>
                                     <td>Theater name</td>
-                                    <td>Show Time</td>
+                                    <td>Location</td>
                                     <td>Seat Count</td>
-                                    <td>Price</td>
+                                    <td>Open Time</td>
                                     <td>
                                         <ul className="action-list">
-                                            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
+                                            <li><a href="#" data-tip="edit" onClick={showEditTheaterModal}><i className="fa fa-edit"></i></a></li>
                                             <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
                                         </ul>
                                     </td>
@@ -153,7 +148,7 @@ const TheaterDetails = () => {
             {/*theaters table end*/}
 
             {/*add movie modal*/}
-            <Modal title="Add Movie" visible={isAddMovieModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+            <Modal title="Add Theater" visible={isAddTheaterModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -163,43 +158,28 @@ const TheaterDetails = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     initialValues={{
-                        ["movieName"]: movie.name,
-                        ["theaterName"]: movie.theaterName,
-                        ["seatCount"]: movie.seatCount,
-                        ["time"]: movie.time,
-                        ["price"]: movie.price,
+                        ["theaterName"]: theater.theaterName,
+                        ["seatCount"]: theater.seatCount,
+                        ["openTime"]: theater.openTime,
+                        ["location"]: theater.location,
                     }}
                 >
                     <Form.Item
-                        label="Movie Name"
-                        name="movieName"
+                        label="Theater Name"
+                        name="theaterName"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input movie name!' }]}
+                        rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theaterName"
+                        label="Location"
+                        name="location"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
@@ -212,21 +192,12 @@ const TheaterDetails = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Time"
-                        name="time"
+                        label="Open Time"
+                        name="openTime"
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input time!' }]}
                     >
                         <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -239,7 +210,7 @@ const TheaterDetails = () => {
             {/*add movie modal end*/}
 
             {/*add edit modal*/}
-            <Modal title="Edit Movie" visible={isEditMovieModalVisible} onOk={handleOk} onCancel={handleEditMovieModalCancel} footer={null}>
+            <Modal title="Edit Theater" visible={isEditTheaterModalVisible} onOk={handleOk} onCancel={handleEditTheaterModalCancel} footer={null}>
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -250,35 +221,21 @@ const TheaterDetails = () => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Movie Name"
-                        name="movieName"
+                        label="Theater Name"
+                        name="theaterName"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input movie name!' }]}
+                        rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
-                        label="Theater"
-                        name="theaterName"
+                        label="Location"
+                        name="location"
                         tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select a theater!' }]}
+                        rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                        </Select>
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
                     </Form.Item>
 
                     <Form.Item
@@ -291,23 +248,13 @@ const TheaterDetails = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Time"
-                        name="time"
+                        label="Open Time"
+                        name="openTime"
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input time!' }]}
                     >
                         <TimePicker.RangePicker onChange={onTimeChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                     </Form.Item>
-
-                    <Form.Item
-                        label="Ticket Price"
-                        name="price"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input ticket price!' }]}
-                    >
-                        <InputNumber prefix="$" style={{ width: '100%' }} />
-                    </Form.Item>
-
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit" loading shape="round" size="large">
@@ -321,4 +268,4 @@ const TheaterDetails = () => {
     )
 }
 
-export default TheaterDetails
+export default Theaters;

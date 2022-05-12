@@ -16,7 +16,6 @@ const Home = () => {
   return (
     <>
       <div className="App" id={load ? "no-scroll" : "scroll"}>
-        <Navigation />
         <section id="#home">
           <ControlledCarousel />
         </section>
@@ -24,7 +23,6 @@ const Home = () => {
           <MovieGrid />
         </section>
         <section id="#footer">
-          <Footer />
         </section>
       </div>
     </>

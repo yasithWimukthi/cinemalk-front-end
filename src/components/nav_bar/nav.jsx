@@ -5,9 +5,11 @@ import Nav from 'react-bootstrap/Nav';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import './nav.scss';
 import { Link } from 'react-router-dom';
+import {useNavigate} from "react-router";
 
 
 const Navigation = () => {
+    const navigate = useNavigate()
     const [expand, setexpand] = React.useState(false);
     const [pathstate, setpathstate] = React.useState('#home');
 
@@ -25,6 +27,11 @@ const Navigation = () => {
             element.scrollIntoView();
         }
     }, [pathstate]);
+
+
+    const login =()=>{
+        navigate("/login")
+    }
 
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
@@ -61,6 +68,7 @@ const Navigation = () => {
                         </Nav.Item>
                         <Nav.Item>
                             <button className="logBtn">Login</button>
+                            <button className="logBtn" onClick={login}>Login</button>
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>

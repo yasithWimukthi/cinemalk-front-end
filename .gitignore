@@ -128,3 +128,7 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/react,webstorm
 /.idea/vcs.xml
+/.idea/.gitignore
+/.idea/cinemalk-front-end.iml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
