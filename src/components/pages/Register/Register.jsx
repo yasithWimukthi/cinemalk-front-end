@@ -10,7 +10,9 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as Yup from "yup";
+import Swal from 'sweetalert2'
 import axios from 'axios';
+import Login from "../Login/Login";
 
 
 const FlexBox = styled(Box)(() => ({
@@ -75,6 +77,8 @@ const validationSchema = yup.object({
 
 const Register = () => {
 
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -98,10 +102,18 @@ const Register = () => {
             })
                 .then(res => {
                     console.log(res);
+                    setIsLoggedIn(true);
                 })
                 .catch(err => {
                     console.log(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Registration Failed!',
+                    })
                 });
+
+            if (isLoggedIn) return <Login />;
         },
     });
 
