@@ -99,7 +99,8 @@ const Login = () => {
             })
                 .then(res => {
                     console.log(res.data);
-                    //navigate('/dashboard');
+                    localStorage.setItem('token', res.data.token);
+                    navigate('/');
                 })
                 .catch(err => {
                     console.log(err);
