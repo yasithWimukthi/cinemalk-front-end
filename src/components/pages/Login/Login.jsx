@@ -10,6 +10,8 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from "react-router";
+import axios from 'axios';
+import Swal from "sweetalert2";
 
 
 const FlexBox = styled(Box)(() => ({
@@ -91,6 +93,22 @@ const Login = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             alert(JSON.stringify(values, null, 2));
+            axios.post('http://localhost:4000/api/auth/login', {
+                email: values.email,
+                password: values.password
+            })
+                .then(res => {
+                    console.log(res.data);
+                    //navigate('/dashboard');
+                })
+                .catch(err => {
+                    console.log(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Login Failed!. Please check your credentials.',
+                    })
+                })
         },
     });
 

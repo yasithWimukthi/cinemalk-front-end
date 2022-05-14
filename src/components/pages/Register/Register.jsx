@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import Login from "../Login/Login";
+import {useNavigate} from "react-router";
 
 
 const FlexBox = styled(Box)(() => ({
@@ -78,6 +79,7 @@ const validationSchema = yup.object({
 const Register = () => {
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -103,6 +105,7 @@ const Register = () => {
                 .then(res => {
                     console.log(res);
                     setIsLoggedIn(true);
+                    navigate("/login")
                 })
                 .catch(err => {
                     console.log(err);
@@ -113,7 +116,6 @@ const Register = () => {
                     })
                 });
 
-            if (isLoggedIn) return <Login />;
         },
     });
 
