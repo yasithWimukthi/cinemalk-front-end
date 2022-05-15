@@ -1,5 +1,4 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ReservationCancel.css";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,6 +9,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import res from "./reservations.json";
 
 const ReservationCancel = () => {
   const Transition = React.forwardRef(function Transition(props, ref) {
@@ -17,6 +17,7 @@ const ReservationCancel = () => {
   });
 
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,7 +25,14 @@ const ReservationCancel = () => {
 
   const handleClose = () => {
     setOpen(false);
+    window.location.reload();
   };
+
+  const getData = () => {};
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="ResCancelPage">
       <div className="ResCancelHeader">
@@ -44,51 +52,53 @@ const ReservationCancel = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td> Heshan Fernando</td>
-            <td>Spiderman</td>
-            <td>Scope Cinema</td>
-            <td>5/9/2022</td>
-            <td>17.30pm</td>
-            <td>45</td>
-            <td>
-              <Button
-                variant="contained"
-                color="error"
-                startIcon={<DeleteIcon />}
-                onClick={handleClickOpen}
-              >
-                Delete
-              </Button>
-              <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <center>
-                  <WarningRoundedIcon sx={{ fontSize: 80 }} color="error" />
-                </center>
-                <DialogTitle>
-                  {"Are you sure to delete this movie reservation?"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    Once the reservation is deleted it cannot be
-                    undone.Therefore, please confirm your deletion!
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color="error">
-                    Delete
-                  </Button>
-                  <Button onClick={handleClose}>Cancel</Button>
-                </DialogActions>
-              </Dialog>
-            </td>
-          </tr>
+          {res.map((item, i) => (
+            <tr key={i}>
+              <td>{item.id}</td>
+              <td> {item.cusName}</td>
+              <td>{item.movieName}</td>
+              <td>{item.theatre}</td>
+              <td>{item.date}</td>
+              <td>{item.showTime}</td>
+              <td>{item.seats}</td>
+              <td>
+                <Button
+                  variant="contained"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  onClick={handleClickOpen}
+                >
+                  Delete
+                </Button>
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <center>
+                    <WarningRoundedIcon sx={{ fontSize: 80 }} color="error" />
+                  </center>
+                  <DialogTitle>
+                    {"Are you sure to delete this movie reservation?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      Once the reservation is deleted it cannot be
+                      undone.Therefore, please confirm your deletion!
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose} color="error">
+                      Delete
+                    </Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                  </DialogActions>
+                </Dialog>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
