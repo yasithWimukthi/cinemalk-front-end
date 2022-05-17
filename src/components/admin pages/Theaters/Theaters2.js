@@ -45,16 +45,16 @@ const Theaters = () => {
         getAllTheaters(); // fetch theater details from backend theater service
     }, []);
 
-    let defaultValues = {
-        name: selectedTheaterDetails.name,
-        noOfSeats: selectedTheaterDetails.noOfSeats,
-        address: selectedTheaterDetails.address,
-        phone: selectedTheaterDetails.phone
-    }
-
+    //re-render the component everytime when user select a new theator from the table to edit
     useEffect(() => {
-        form.setFieldsValue(defaultValues)
-       }, [form, defaultValues])
+        //if theater details were changed, form-values will be re-initialized with new theater details.
+        form.setFieldsValue({
+            name: selectedTheaterDetails.name,
+            noOfSeats: selectedTheaterDetails.noOfSeats,
+            address: selectedTheaterDetails.address,
+            phone: selectedTheaterDetails.phone
+        })
+       }, [form, selectedTheaterDetails])
 
     const showEditTheaterModal = (id) => {
         //retrieve details of the selected theater
@@ -214,7 +214,10 @@ const Theaters = () => {
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 16 }}
                     autoComplete="off"
-                    initialValues={defaultValues}
+                    initialValues={{name: selectedTheaterDetails.name,
+                        noOfSeats: selectedTheaterDetails.noOfSeats,
+                        address: selectedTheaterDetails.address,
+                        phone: selectedTheaterDetails.phone}}
                     onFinish={handleSubmit}
                     onFinishFailed={onFinishFailed}
                 >
