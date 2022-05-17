@@ -7,6 +7,7 @@ import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
 
 const TheaterDetails = () => {
     const MySwal = withReactContent(Swal)
@@ -46,6 +47,23 @@ const TheaterDetails = () => {
         seatCount: null,
         url: '',
     });
+    
+    //fetch theater details from backend 
+    const [loadedTheaters, setLoadedTheaters] = useState([]);
+
+    const getAllTheaters = () => {
+        getTheaters("/api/theaters")
+        .then((res) => {
+            setLoadedTheaters(res.data.data);
+            console.log(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    useEffect(() => {
+        getAllTheaters(); // fetch theater details from backend theater service
+    }, []);
 
     useEffect(() => {
         fetch('http://localhost:8090/api/theaterDetails')
@@ -252,13 +270,10 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                        <Select defaultValue="Theater" onChange={handleChange}>
+                            {loadedTheaters.map((theater) => (
+                                <Option key={theater._id} value={theater.name}>{theater.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
@@ -331,13 +346,10 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                        <Select defaultValue="Theater"  onChange={handleChange}>
+                            {loadedTheaters.map((theater) => (
+                                <Option key={theater._id} value={theater.name}>{theater.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
