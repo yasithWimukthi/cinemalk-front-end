@@ -11,6 +11,7 @@ import Register from "./components/pages/Register/Register"
 import MovieList from "./components/admin pages/Movies/MovieList";
 import Theaters from "./components/admin pages/Theaters/TheatersTable";
 import TheaterDetails from "./components/admin pages/TheaterDetails/TheaterDetails";
+import ReservationCancel from "./components/pages/CancelReservationPage/Reservations/ReservationCancel";
 
 const Layout =(props)=>{
   return(
@@ -35,7 +36,8 @@ function App() {
             <Route path="/movies" element={<MovieList/>} />
             <Route path="/theaters" element={<Theaters/> } />
             <Route path="/theater-details" element={<TheaterDetails/> } />
-        </Routes>
+            <Route path="/reservations" element={<Layout component={<ReservationCancel/>} />} />
+      </Routes>
       </BrowserRouter>
 
     </>
