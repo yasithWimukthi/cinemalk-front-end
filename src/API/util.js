@@ -1,3 +1,4 @@
+/**APIs calls of all CRUD http requests are implemented in this class */
 const axios = require("axios").default;
 
 const BASE_URL = "http://localhost:4000";
@@ -27,7 +28,6 @@ export const getByIDRequest = (uri, id) => {
         resolve(response);
       })
       .catch(function (error) {
-        console.log('errrrr', error);
         reject(error);
       })
       .then(function () {
@@ -37,12 +37,10 @@ export const getByIDRequest = (uri, id) => {
 };
 
 export const postRequest = (uri, data) => {
-  //data is an object
   return new Promise((resolve, reject) => {
     axios
       .post(`${BASE_URL}${uri}`, data)
       .then(function (response) {
-        console.log('add result', response)
         resolve(response);
       })
       .catch(function (error) {
@@ -57,11 +55,9 @@ export const updateRequest = (uri, id, data) => {
     axios
       .put(`${BASE_URL}${uri}${id}`, data)
       .then(function (response) {
-        console.log('success', response);
         resolve(response);
       })
       .catch(function (error) {
-        console.log('errrrrr', error);
         reject(error);
     })
   })
@@ -72,11 +68,9 @@ export const deleteRequest = (uri, id) => {
     axios
       .delete(`${BASE_URL}${uri}${id}`)
       .then(function (response) {
-        console.log('deleted', response);
         resolve(response);
       })
       .catch(function (error) {
-        console.log(error);
         reject(error);
       })
       .then(function () {

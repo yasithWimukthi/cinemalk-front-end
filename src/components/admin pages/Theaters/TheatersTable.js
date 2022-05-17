@@ -37,12 +37,12 @@ const Theaters = () => {
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
 
+    // fetch theater details from backend theater service
     const getAllTheaters = () => {
         getTheaters("/api/theaters")
         .then((res) => {
             setLoadedTheaters(res.data.data);
             setFormData(res.data.data)
-            console.log(loadedTheaters);
         })
         .catch((err) => {
           console.log(err);
@@ -50,7 +50,7 @@ const Theaters = () => {
     }
 
     useEffect(() => {
-        getAllTheaters(); // fetch theater details from backend theater service
+        getAllTheaters(); //details of all theaters will be fetched when component renders for the first time
     }, []);
 
     //re-render the component everytime when user select a new theator from the table to edit

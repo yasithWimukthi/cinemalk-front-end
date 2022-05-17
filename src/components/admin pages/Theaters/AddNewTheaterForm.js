@@ -44,6 +44,7 @@ const AddNewTheaterForm = (props) => {
         });
     };
     
+    //show success message alert
     const showSuccessMsg = async () => {
         await MySwal.fire({
             title: <strong>New Theater Added!</strong>,
