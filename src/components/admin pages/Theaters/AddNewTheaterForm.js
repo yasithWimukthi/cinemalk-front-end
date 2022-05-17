@@ -20,12 +20,10 @@ const AddNewTheaterForm = (props) => {
     });
 
     const handleChange = (event) => {
-        console.log('changingg', event.target.name, event.target.value);
         setTheaterDetails({ ...theaterDetails, [event.target.name]: event.target.value })
     }
 
     const handleSubmit = (formValues) => {
-        console.log('Success:', formValues);
         //call addNewTheater API
         addTheater("/api/theaters", formValues)
         .then((res) => {
@@ -48,7 +46,7 @@ const AddNewTheaterForm = (props) => {
     
     const showSuccessMsg = async () => {
         await MySwal.fire({
-            title: <strong>Good job!</strong>,
+            title: <strong>Success!</strong>,
             html: <i>You added new theater!</i>,
             icon: 'success'
         })
@@ -60,7 +58,6 @@ const AddNewTheaterForm = (props) => {
 
     return (
         <Modal title="Add Theater" visible={true} onCancel={props.closeModal} footer={null}>
-            {console.log('add', theaterDetails)}
                 <Form
                     name="basic"
                     labelCol={{ span: 6 }}
