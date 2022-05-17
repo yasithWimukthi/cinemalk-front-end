@@ -1,12 +1,9 @@
 import './MovieList.css';
-import {Modal, Form, Input, Button, Select, TimePicker, InputNumber} from 'antd';
+import {Modal, Form, Input, Button, InputNumber} from 'antd';
 import {useEffect, useState} from "react";
-import {Option} from "antd/es/mentions";
-import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { getTheaters, getTheaterById, deleteTheater, updateTheater } from '../../../API/Admin pages/TheatersAPI';
-import { formatCountdown } from 'antd/lib/statistic/utils';
 import AddNewTheaterForm from './AddNewTheaterForm';
 
 
@@ -52,7 +49,7 @@ const Theaters = () => {
         name: selectedTheaterDetails.name,
         noOfSeats: selectedTheaterDetails.noOfSeats,
         address: selectedTheaterDetails.address,
-        phone: selectedTheaterDetails.phone,
+        phone: selectedTheaterDetails.phone
     }
 
     useEffect(() => {
@@ -111,11 +108,11 @@ const Theaters = () => {
         })
     }
     
-      const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
-      };
+    };
 
-      const showAddTheaterModal = () => {
+    const showAddTheaterModal = () => {
         setIsAddTheaterModalVisible(true);
     };
 
