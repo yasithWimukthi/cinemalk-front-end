@@ -3,13 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import './nav.scss';
+import '../../nav_bar/nav.scss';
 import { Link } from 'react-router-dom';
-import {useNavigate} from "react-router";
 
 
-const Navigation = () => {
-    const navigate = useNavigate()
+const NavBar = () => {
     const [expand, setexpand] = React.useState(false);
     const [pathstate, setpathstate] = React.useState('#home');
 
@@ -28,11 +26,6 @@ const Navigation = () => {
         }
     }, [pathstate]);
 
-
-    const login =()=>{
-        navigate("/login")
-    }
-
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
             <Container>
@@ -47,27 +40,12 @@ const Navigation = () => {
                     <span></span>
                 </Navbar.Toggle>
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto" defaultActiveKey="#home" id="items">
+                    <Nav className="ml-auto inside-cart-page" defaultActiveKey="#home" id="items">
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#home'))}>
-                                <p /> Home
-                            </Nav.Link>
+                            <Link to="/cart"><button className="cart-icon inside-cart-page__cart-icon"><ShoppingCartOutlinedIcon /></button></Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#movies'))}>
-                                <p /> Movies
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#faq'))}>
-                                <p />  Theaters
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Link to="/cart"><button className="cart-icon"><ShoppingCartOutlinedIcon /></button></Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <button className="logBtn" onClick={login}>Login</button>
+                            <button className="logBtn inside-cart-page__logBtn">Login</button>
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
@@ -76,4 +54,4 @@ const Navigation = () => {
     );
 };
 
-export default Navigation;
+export default NavBar;

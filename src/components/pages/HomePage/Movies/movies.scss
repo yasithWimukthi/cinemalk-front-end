@@ -1,0 +1,153 @@
+.section-movies {
+    background-color: currentColor;
+    padding: 30px 0 10px 0;
+}
+.movie-grid-wrapper {
+    background-color: currentColor;
+} 
+
+.movie-card-wrapper {
+    padding: 15px;
+}
+
+.movie-img {
+    min-width: 310px;
+    height: 250px;
+    background-size: fill;
+    background-position: 50%;
+    position: relative;
+    transition: all .3s ease-out;
+}
+
+.booked-movie-img {
+    min-width: 310px;
+    height: 280px;
+    background-size: fill;
+    background-position: 50%;
+    position: relative;
+    transition: all .3s ease-out;
+}
+
+.movie-grid-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-card {
+    background-color: #000102;
+    color: #f5f2f2;
+    transition: all .3s ease-out;
+}
+
+.css-h93ljk-MuiTypography-root {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    //fixed-height for movie description
+    min-height: 66px; 
+}
+
+.css-1t6e9jv-MuiCardActions-root {
+    justify-content: center;
+    padding: 0 !important;
+    background-color: #b38c0c;
+    border-radius: 5px;
+    color: black;
+    font-weight: 400 !important;
+}
+
+p {
+    font-size: 13px;
+}
+
+@media (min-width: 1400px) {
+    .carousel-wrapper {
+        margin-top: 86px;
+    }
+
+    .carousel {
+        position: relative;
+        padding: 0 300px 0 300px;
+        background-color: black;
+    }
+}
+
+@media (max-width: 1400px) {
+    .movie-img {
+        min-width: 300px;
+        height: 170px;
+        background-size: fill;
+        background-position: 50%;
+        position: relative;
+        transition: all .3s ease-out;
+    }
+}
+
+.book-ticket-button {
+ font-weight: 600 !important; 
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    // background-color: #b38c0c;
+    border-radius: 1px solid 50%;
+    padding: 5px;
+}
+
+.css-o69gx8-MuiCardMedia-root {
+    object-fit: fill !important;
+}
+
+//styles for modal
+.movie-booking-modal {
+    .ant-modal-content {
+        background-color: #000102;
+    }
+    .ant-modal-footer {
+        border: none !important;
+    }
+    .ant-modal-header {
+        background-color: #000102;
+        border-bottom: 1px solid #ffc107 !important;
+    }
+    .ant-modal-mask {
+        background-color: #686868b5 !important;
+        z-index: 0 !important;
+    }
+    .anticon svg {
+        fill: #ffc107;
+    }
+    .ant-btn-primary {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: black;
+    }
+    .ant-btn-default {
+        background-color: transparent;
+        color: khaki;
+        border-color: khaki;
+    }
+    .ant-modal-body {
+        padding: 0 0 24px 0;
+    }
+    .ant-modal {
+        max-width: 70% !important;
+        min-width: 70%;
+    }
+}
+
+// styles for input fields set in movie-booking modal
+.movie-name-label {
+    text-align: center;
+}
+.input-stack {
+ padding: 15px 20px 15px 20px;
+}
+.css-1p5q5e5-MuiStack-root {
+    background-color: rgb(255, 255, 255);
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    background-color: beige;
+    border-radius: 5px;
+}
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+    background-color: beige;
+}
