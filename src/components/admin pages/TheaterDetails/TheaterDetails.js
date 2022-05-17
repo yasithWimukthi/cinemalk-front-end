@@ -18,7 +18,8 @@ const TheaterDetails = () => {
         theaterName:'',
         price: null,
         time: '',
-        seatCount: null
+        seatCount: null,
+        url: '',
     });
 
     const showAddMovieModal = () => {
