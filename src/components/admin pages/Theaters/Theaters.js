@@ -5,7 +5,7 @@ import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
+import { getTheaters, getTheaterById } from '../../../API/Admin pages/TheatersAPI';
 
 
 const Theaters = () => {
@@ -23,6 +23,7 @@ const Theaters = () => {
     });
 
     const [loadedTheaters, setLoadedTheaters] = useState([]);
+    const [selectedTheaterDetails, setDetailsForSelectedTheater] = useState([]);
 
     useEffect(() => {
         // fetch theater details from backend theater service
@@ -34,7 +35,6 @@ const Theaters = () => {
         .catch((err) => {
           console.log(err);
         });
-        console.log(loadedTheaters);
 
     }, []);
 
@@ -42,8 +42,16 @@ const Theaters = () => {
         setIsAddTheaterModalVisible(true);
     };
 
-    const showEditTheaterModal = () => {
-        setIsEditTheaterModalVisible(true);
+    const showEditTheaterModal = (id) => {
+        //retrieve details of the selected theater
+        getTheaterById("/api/theaters/", id)
+            .then((res) => {
+                setDetailsForSelectedTheater(res.data.data);
+                setIsEditTheaterModalVisible(true);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            })        
     };
 
     const handleOk = async () => {
@@ -154,7 +162,7 @@ const Theaters = () => {
                                             <td>{theater.phone}</td>
                                             <td>
                                                 <ul className="action-list">
-                                                    <li><a href="#" data-tip="edit" onClick={showEditTheaterModal}><i className="fa fa-edit"></i></a></li>
+                                                    <li><a href="#" data-tip="edit" onClick={() => showEditTheaterModal(theater._id)}><i className="fa fa-edit"></i></a></li>
                                                     <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
                                                 </ul>
                                             </td>
@@ -170,6 +178,7 @@ const Theaters = () => {
 
             {/*add movie modal*/}
             <Modal title="Add Theater" visible={isAddTheaterModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+                {console.log('dkd', selectedTheaterDetails.name)}
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -191,7 +200,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Input/>
+                        <Input value={selectedTheaterDetails.name}/>
                     </Form.Item>
 
                     <Form.Item
@@ -200,7 +209,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} value={selectedTheaterDetails.addresss}/>
                     </Form.Item>
 
                     <Form.Item
@@ -209,7 +218,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie cast!' }]}
                     >
-                        <InputNumber style={{ width: '100%' }} />
+                        <InputNumber style={{ width: '100%' }} value={selectedTheaterDetails.noOfSeats}/>
                     </Form.Item>
 
                     <Form.Item
@@ -230,8 +239,9 @@ const Theaters = () => {
             </Modal>
             {/*add movie modal end*/}
 
-            {/*add edit modal*/}
+            {/*Edit theater modal*/}
             <Modal title="Edit Theater" visible={isEditTheaterModalVisible} onOk={handleOk} onCancel={handleEditTheaterModalCancel} footer={null}>
+            {console.log('editt', selectedTheaterDetails)}
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -240,6 +250,12 @@ const Theaters = () => {
                     wrapperCol={{ span: 16 }}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={{
+                        ["theaterName"]: selectedTheaterDetails.name,
+                        ["seatCount"]: selectedTheaterDetails.noOfSeats,
+                        ["openTime"]: selectedTheaterDetails.openTime,
+                        ["location"]: selectedTheaterDetails.address,
+                    }}
                 >
                     <Form.Item
                         label="Theater Name"
@@ -247,7 +263,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Input/>
+                        <Input value={selectedTheaterDetails.name}/>
                     </Form.Item>
 
                     <Form.Item
@@ -256,7 +272,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
+                        <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} value={selectedTheaterDetails.addresss}/>
                     </Form.Item>
 
                     <Form.Item
@@ -265,7 +281,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie cast!' }]}
                     >
-                        <InputNumber style={{ width: '100%' }} />
+                        <InputNumber style={{ width: '100%' }} value={selectedTheaterDetails.noOfSeats}/>
                     </Form.Item>
 
                     <Form.Item
