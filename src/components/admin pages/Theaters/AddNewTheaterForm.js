@@ -1,19 +1,15 @@
 import './MovieList.css';
 import {Modal, Form, Input, Button, InputNumber} from 'antd';
-import {useEffect, useState} from "react";
-import {Option} from "antd/es/mentions";
-import moment from "moment";
+import { useState} from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { getTheaters, getTheaterById, addTheater } from '../../../API/Admin pages/TheatersAPI';
+import { addTheater } from '../../../API/Admin pages/TheatersAPI';
 
 
 const AddNewTheaterForm = (props) => { 
-    const [form] = Form.useForm();
 
     const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
-    const [isAddTheaterModalVisible, setIsAddTheaterModalVisible] = useState(false);
 
     const [theaterDetails, setTheaterDetails] = useState({
         _id: '',
@@ -66,7 +62,6 @@ const AddNewTheaterForm = (props) => {
         <Modal title="Add Theater" visible={true} onCancel={props.closeModal} footer={null}>
             {console.log('add', theaterDetails)}
                 <Form
-                    form={form}
                     name="basic"
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 16 }}
