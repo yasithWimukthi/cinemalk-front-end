@@ -1,4 +1,6 @@
+
 /**APIs calls of all CRUD http requests are implemented in this class */
+
 const axios = require("axios").default;
 
 const BASE_URL = "http://localhost:4000";
@@ -28,6 +30,8 @@ export const getByIDRequest = (uri, id) => {
         resolve(response);
       })
       .catch(function (error) {
+
+        console.log('errrrr', error);
         reject(error);
       })
       .then(function () {

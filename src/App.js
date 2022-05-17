@@ -34,7 +34,7 @@ function App() {
             <Route path="/register" element={<Layout component={<Register/>} />} />
             <Route path="/movies" element={<MovieList/>} />
             <Route path="/theaters" element={<Theaters/> } />
-
+            <Route path="/theater-details" element={<TheaterDetails/> } />
         </Routes>
       </BrowserRouter>
 
