@@ -1,10 +1,12 @@
 import './MovieList.css';
 import {Modal, Form, Input, Button, Select, TimePicker, InputNumber} from 'antd';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
+
 
 const Theaters = () => {
     const { TextArea } = Input;
@@ -18,6 +20,22 @@ const Theaters = () => {
         seatCount: null,
         openTime: '',
     });
+
+    const [loadedTheaters, setLoadedTheaters] = useState([]);
+
+    useEffect(() => {
+        // fetch theater details from backend theater service
+      getTheaters("/api/theaters")
+        .then((res) => {
+            setLoadedTheaters(res.data.data);
+            console.log(loadedTheaters);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        console.log(loadedTheaters);
+
+    }, []);
 
     const showAddTheaterModal = () => {
         setIsAddTheaterModalVisible(true);
@@ -126,19 +144,21 @@ const Theaters = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Theater name</td>
-                                    <td>Location</td>
-                                    <td>Seat Count</td>
-                                    <td>Open Time</td>
-                                    <td>
-                                        <ul className="action-list">
-                                            <li><a href="#" data-tip="edit" onClick={showEditTheaterModal}><i className="fa fa-edit"></i></a></li>
-                                            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                    {/* {loadedTheaters.map((theater) => (
+                                        <tr key={theater._id}>
+                                            <td>{theater._id}</td>
+                                            <td>{theater.name}</td>
+                                            <td>{theater.address}</td>
+                                            <td>{theater.noOfSeats}</td>
+                                            <td>{theater.phone}</td>
+                                            <td>
+                                                <ul className="action-list">
+                                                    <li><a href="#" data-tip="edit" onClick={showEditTheaterModal}><i className="fa fa-edit"></i></a></li>
+                                                    <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    ))} */}
                                 </tbody>
                             </table>
                         </div>
