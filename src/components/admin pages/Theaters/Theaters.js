@@ -9,6 +9,7 @@ import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
 
 
 const Theaters = () => {
+    let itemCount = 0;
     const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
     const [isAddTheaterModalVisible, setIsAddTheaterModalVisible] = useState(false);
@@ -135,7 +136,7 @@ const Theaters = () => {
                             <table className="table">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No</th>
                                     <th>Theater</th>
                                     <th>Location</th>
                                     <th>Seat Count</th>
@@ -146,7 +147,7 @@ const Theaters = () => {
                                 <tbody>
                                     {loadedTheaters.map((theater) => (
                                         <tr key={theater._id}>
-                                            <td>{theater._id}</td>
+                                            <td>{itemCount++}</td>
                                             <td>{theater.name}</td>
                                             <td>{theater.address}</td>
                                             <td>{theater.noOfSeats}</td>
