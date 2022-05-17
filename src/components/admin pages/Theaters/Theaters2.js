@@ -17,7 +17,7 @@ const Theaters = () => {
     const [isAddTheaterModalVisible, setIsAddTheaterModalVisible] = useState(false);
 
     const [loadedTheaters, setLoadedTheaters] = useState([]);
-    const [selectedTheaterDetails, setDetailsForSelectedTheater] = useState({
+    const [selectedTheater, setDetailsForSelectedTheater] = useState({
         _id: '',
         name: '',
         noOfSeats: 0,
@@ -55,14 +55,14 @@ const Theaters = () => {
 
     //re-render the component everytime when user select a new theator from the table to edit
     useEffect(() => {
-        //if theater details were changed, form-values will be re-initialized with new theater details.
+        // if selected theater(current one), form-values will be re-initialized with new theater details.
         form.setFieldsValue({
-            name: selectedTheaterDetails.name,
-            noOfSeats: selectedTheaterDetails.noOfSeats,
-            address: selectedTheaterDetails.address,
-            phone: selectedTheaterDetails.phone
+            name: selectedTheater.name,
+            noOfSeats: selectedTheater.noOfSeats,
+            address: selectedTheater.address,
+            phone: selectedTheater.phone
         })
-       }, [form, selectedTheaterDetails])
+       }, [form, selectedTheater])
 
     const showEditTheaterModal = (id) => {
         //retrieve details of the selected theater
@@ -77,7 +77,6 @@ const Theaters = () => {
     };
 
     const handleEditTheaterModalCancel = () => {
-        form.resetFields();
         setIsEditTheaterModalVisible(false);
     };
 
@@ -85,23 +84,14 @@ const Theaters = () => {
         setIsAddTheaterModalVisible(false);
     }
 
-
+    //update theater details when form is submitted
     const handleSubmit = (formValues) => {
-        console.log('Success:', formValues, 'id: ', selectedTheaterDetails._id);
         //call updated theater API
-        updateTheater("/api/theaters/", selectedTheaterDetails._id, formValues)
+        updateTheater("/api/theaters/", selectedTheater._id, formValues)
         .then((res) => {
             setIsEditTheaterModalVisible(false) //close the modal
             getAllTheaters();//refresh table with new theater details
             showSuccessMsg();
-            //clear the input fields in the modal
-            setFormData({
-                _id: '',
-                name: '',
-                noOfSeats: 0,
-                address: '',
-                phone: ''
-            });
         })
         .catch((err) => {
           console.log(err);
@@ -125,6 +115,7 @@ const Theaters = () => {
     };
 
     const handleDelete = (id) => {
+        //display confirmation popup
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -217,17 +208,17 @@ const Theaters = () => {
 
             {/*Edit theater modal*/}
             <Modal title="Edit Theater" visible={isEditTheaterModalVisible} onCancel={handleEditTheaterModalCancel} footer={null}>
-            {console.log('editt', selectedTheaterDetails)}
+            {console.log('editt', selectedTheater)}
                 <Form
                     form={form}
                     name="basic"
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 16 }}
                     autoComplete="off"
-                    initialValues={{name: selectedTheaterDetails.name,
-                        noOfSeats: selectedTheaterDetails.noOfSeats,
-                        address: selectedTheaterDetails.address,
-                        phone: selectedTheaterDetails.phone}}
+                    initialValues={{name: selectedTheater.name,
+                        noOfSeats: selectedTheater.noOfSeats,
+                        address: selectedTheater.address,
+                        phone: selectedTheater.phone}}
                     onFinish={handleSubmit}
                     onFinishFailed={onFinishFailed}
                 >
