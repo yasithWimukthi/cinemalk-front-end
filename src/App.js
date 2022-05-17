@@ -9,7 +9,7 @@ import Nav from './components/nav_bar/nav'
 import Footer from './components/footer/footer'
 import Register from "./components/pages/Register/Register"
 import MovieList from "./components/admin pages/Movies/MovieList";
-import Theaters from "./components/admin pages/Theaters/Theaters";
+import Theaters from "./components/admin pages/Theaters/TheatersTable";
 import TheaterDetails from "./components/admin pages/TheaterDetails/TheaterDetails";
 
 const Layout =(props)=>{
