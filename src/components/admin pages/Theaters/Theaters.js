@@ -144,7 +144,7 @@ const Theaters = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {/* {loadedTheaters.map((theater) => (
+                                    {loadedTheaters.map((theater) => (
                                         <tr key={theater._id}>
                                             <td>{theater._id}</td>
                                             <td>{theater.name}</td>
@@ -158,7 +158,7 @@ const Theaters = () => {
                                                 </ul>
                                             </td>
                                         </tr>
-                                    ))} */}
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
