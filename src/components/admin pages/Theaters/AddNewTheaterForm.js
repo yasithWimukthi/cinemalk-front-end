@@ -46,8 +46,8 @@ const AddNewTheaterForm = (props) => {
     
     const showSuccessMsg = async () => {
         await MySwal.fire({
-            title: <strong>Success!</strong>,
-            html: <i>You added new theater!</i>,
+            title: <strong>New Theater Added!</strong>,
+            html: <i>You added new theater successfully!</i>,
             icon: 'success'
         })
     }

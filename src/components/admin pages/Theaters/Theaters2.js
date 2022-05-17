@@ -34,7 +34,6 @@ const Theaters = () => {
     })
 
     const handleChange = (event) => {
-        console.log('changingg', event.target.name, event.target.value);
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
 
@@ -111,8 +110,8 @@ const Theaters = () => {
     
     const showSuccessMsg = async () => {
         await MySwal.fire({
-            title: <strong>Good job!</strong>,
-            html: <i>You clicked the button!</i>,
+            title: <strong>Updated!</strong>,
+            html: <i>Theater details updated successfully</i>,
             icon: 'success'
         })
     }
@@ -181,7 +180,8 @@ const Theaters = () => {
                         <div className="panel-body table-responsive">
                             <table className="table">
                                 <thead>
-                                <tr>
+                                    <tr>
+                                    <th></th>
                                     <th>No</th>
                                     <th>Theater</th>
                                     <th>Location</th>
@@ -193,6 +193,7 @@ const Theaters = () => {
                                 <tbody>
                                     {loadedTheaters.map((theater) => (
                                         <tr key={theater._id}>
+                                            <td></td>
                                             <td>{itemCount++}</td>
                                             <td>{theater.name}</td>
                                             <td>{theater.address}</td>
