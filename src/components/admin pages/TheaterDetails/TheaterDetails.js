@@ -2,7 +2,7 @@ import './MovieList.css';
 
 import { Modal, Form, Button, Select, TimePicker, InputNumber} from 'antd';
 import './MovieList.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
@@ -13,6 +13,31 @@ const TheaterDetails = () => {
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [movieList, setMovieList] = useState([]);
+    const [theaterList, setTheaterList] = useState([]);
+    const [theaterDetailList, setTheaterDetailList] = useState([])
+    // const [theaterDetailList, setTheaterDetailList] = useState([
+    //     {
+    //         movieName: "123",
+    //         imageURL: "123.com",
+    //         theater: [
+    //             {
+    //                 name: "theater 1",
+    //                 price: "100",
+    //                 time: "12:00",
+    //                 seatCount: "100"
+    //
+    //             }
+    //             ,                {
+    //                 name: "theater 2",
+    //                 price: "100",
+    //                 time: "12:00",
+    //                 seatCount: "100"
+    //
+    //             }
+    //         ]
+    //     }
+    // ]);
     const [movie, setMovie] = useState({
         movieName: '',
         theaterName:'',
@@ -21,6 +46,16 @@ const TheaterDetails = () => {
         seatCount: null,
         url: '',
     });
+
+    useEffect(() => {
+        fetch('http://localhost:8090/api/theaterDetails')
+            .then(res => res.json())
+            .then(data => {
+                setTheaterDetailList(data);
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     const showAddMovieModal = () => {
         setIsAddMovieModalVisible(true);
@@ -131,20 +166,44 @@ const TheaterDetails = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Vincent Williamson</td>
-                                    <td>Theater name</td>
-                                    <td>Show Time</td>
-                                    <td>Seat Count</td>
-                                    <td>Price</td>
-                                    <td>
-                                        <ul className="action-list">
-                                            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
-                                            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                {/*<tr>*/}
+                                {/*    <td>1</td>*/}
+                                {/*    <td>Vincent Williamson</td>*/}
+                                {/*    <td>Theater name</td>*/}
+                                {/*    <td>Show Time</td>*/}
+                                {/*    <td>Seat Count</td>*/}
+                                {/*    <td>Price</td>*/}
+                                {/*    <td>*/}
+                                {/*        <ul className="action-list">*/}
+                                {/*            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>*/}
+                                {/*            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>*/}
+                                {/*        </ul>*/}
+                                {/*    </td>*/}
+                                {/*</tr>*/}
+                                {
+                                    theaterDetailList && theaterDetailList.length>0 && theaterDetailList.map((theaterDetail, index) => {
+                                        return (
+                                            theaterDetail.theater.map(theater => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{index+1}</td>
+                                                        <td>{theaterDetail.movieName}</td>
+                                                        <td>{theater.name}</td>
+                                                        <td>{theater.time}</td>
+                                                        <td>{theater.seatCount}</td>
+                                                        <td>{theater.price}</td>
+                                                        <td>
+                                                            <ul className="action-list">
+                                                                <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>
+                                                                <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        )
+                                    })
+                                }
                                 </tbody>
                             </table>
                         </div>
