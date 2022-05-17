@@ -25,15 +25,24 @@ const Theaters = () => {
         phone: ''
     });
 
+    const [formData, setFormData] = useState({
+        _id: '',
+        name: '',
+        noOfSeats: 0,
+        address: '',
+        phone: ''
+    })
+
     const handleChange = (event) => {
         console.log('changingg', event.target.name, event.target.value);
-        setDetailsForSelectedTheater({ ...selectedTheaterDetails, [event.target.name]: event.target.value })
+        setFormData({ ...formData, [event.target.name]: event.target.value })
     }
 
     const getAllTheaters = () => {
         getTheaters("/api/theaters")
         .then((res) => {
             setLoadedTheaters(res.data.data);
+            setFormData(res.data.data)
             console.log(loadedTheaters);
         })
         .catch((err) => {
@@ -87,7 +96,7 @@ const Theaters = () => {
             getAllTheaters();//refresh table with new theater details
             showSuccessMsg();
             //clear the input fields in the modal
-            setDetailsForSelectedTheater({
+            setFormData({
                 _id: '',
                 name: '',
                 noOfSeats: 0,
@@ -227,7 +236,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input theater name!' }]}
                     >
-                        <Input value={selectedTheaterDetails.name} onChange={handleChange}/>
+                        <Input value={formData.name} onChange={handleChange}/>
                     </Form.Item>
 
                     <Form.Item
@@ -236,7 +245,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select location!' }]}
                     >
-                        <TextArea rows={3} placeholder="Cinema hall address" value={selectedTheaterDetails.address} onChange={handleChange}/>
+                        <TextArea rows={3} placeholder="Cinema hall address" value={formData.address} onChange={handleChange}/>
                     </Form.Item>
 
                     <Form.Item
@@ -245,7 +254,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please enter the seat count!' }]}
                     >
-                        <InputNumber style={{ width: '100%' }} value={selectedTheaterDetails.noOfSeats} onChange={handleChange}/>
+                        <InputNumber style={{ width: '100%' }} value={formData.noOfSeats} onChange={handleChange}/>
                     </Form.Item>
 
                     <Form.Item
@@ -254,7 +263,7 @@ const Theaters = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input phone number!' }]}
                     >
-                        <Input value={selectedTheaterDetails.phone} onChange={handleChange}/>
+                        <Input value={formData.phone} onChange={handleChange}/>
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
