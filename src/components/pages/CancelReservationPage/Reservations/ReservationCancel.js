@@ -9,15 +9,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import res from "./reservations.json";
+//import res from "./reservations.json";
+import {deleteReservation,getReservations,} from "../../../../API/Reservation pages/ReservationCancelAPI";
 
 const ReservationCancel = () => {
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
+  const [loadedReservations, setLoadedReservations] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [data, setData] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,15 +29,44 @@ const ReservationCancel = () => {
     window.location.reload();
   };
 
+  const handleDelete = (id) => {
+    deleteReservation("/reservation/", id)
+      .then((res) => {
+        console.log("ress", res.data);
+        window.location.reload();
+        getAllReservations();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
   const getData = () => {};
   useEffect(() => {
     getData();
   }, []);
 
+  // Retrieve reservation data from backend
+  const getAllReservations = () => {
+    getReservations("/reservation")
+      .then((res) => {
+        setLoadedReservations(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllReservations();
+  }, []);
+
   return (
     <div className="ResCancelPage">
       <div className="ResCancelHeader">
-        <h4>Cancel Reservations</h4>
+        <center>
+          <h4>Cancel Reservations</h4>
+        </center>
       </div>
       <table className="table">
         <thead>
@@ -48,28 +78,31 @@ const ReservationCancel = () => {
             <th>Date</th>
             <th>Show Time</th>
             <th>No Of Seats Reserved</th>
-            <th>Actions</th>
+            <th><center> Actions</center></th>
           </tr>
         </thead>
         <tbody>
-          {res.map((item, i) => (
-            <tr key={i}>
-              <td>{item.id}</td>
-              <td> {item.cusName}</td>
-              <td>{item.movieName}</td>
-              <td>{item.theatre}</td>
-              <td>{item.date}</td>
-              <td>{item.showTime}</td>
-              <td>{item.seats}</td>
+          {loadedReservations.map((reservation) => (
+            <tr key={reservation._id}>
+              <td>{reservation._id}</td>
+              <td> {reservation.cusName}</td>
+              <td>{reservation.movieName}</td>
+              <td>{reservation.theater}</td>
+              <td>{reservation.date}</td>
+              <td>{reservation.showTime}</td>
+              <td>{reservation.seats}</td>
               <td>
-                <Button
-                  variant="contained"
-                  color="error"
-                  startIcon={<DeleteIcon />}
-                  onClick={handleClickOpen}
-                >
-                  Delete
-                </Button>
+                <center>
+                  {" "}
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={handleClickOpen}
+                  >
+                    Delete
+                  </Button>
+                </center>
                 <Dialog
                   open={open}
                   TransitionComponent={Transition}
@@ -90,7 +123,10 @@ const ReservationCancel = () => {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose} color="error">
+                    <Button
+                      onClick={() => handleDelete(reservation._id)}
+                      color="error"
+                    >
                       Delete
                     </Button>
                     <Button onClick={handleClose}>Cancel</Button>
