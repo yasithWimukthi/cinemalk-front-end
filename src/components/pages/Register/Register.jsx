@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios';
 import Login from "../Login/Login";
 import {useNavigate} from "react-router";
-
+import api from "../../../API/Auth/auth"
 
 const FlexBox = styled(Box)(() => ({
     display: 'flex',
@@ -92,17 +92,20 @@ const Register = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-            axios.post('http://localhost:4000/api/auth/signup', {
-                email: values.email,
-                password: values.password,
-                passwordConfirmation: values.passConf,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                mobile: values.mobile,
-                type:'user'
-            })
-                .then(res => {
+           
+          const data ={
+            email: values.email,
+            password: values.password,
+            passwordConfirmation: values.passConf,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            mobile: values.mobile,
+            type:'user'
+          }
+
+
+
+            api.SignUp(data).then(res => {
                     console.log(res);
                     setIsLoggedIn(true);
                     navigate("/login")
