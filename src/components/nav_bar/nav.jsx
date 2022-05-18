@@ -43,7 +43,11 @@ const Navigation = () => {
         navigate("/login")
     }
 
+    const booking = ()=>{
+        navigate("/reservations")
+    }
 
+     
 
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
@@ -71,8 +75,8 @@ const Navigation = () => {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#faq'))}>
-                                <p />  Theaters
+                            <Nav.Link onClick={booking}>
+                                <p />  Bookings
                             </Nav.Link>
                         </Nav.Item>
                         {user?( 
