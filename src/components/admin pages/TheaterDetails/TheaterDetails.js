@@ -42,8 +42,8 @@ const TheaterDetails = () => {
         fetch('http://localhost:8090/api/movies')
             .then(res => res.json())
             .then(data => {
-                setMovieList(data.data);
-                console.log(data.data);
+                setMovieList(data);
+                console.log(data);
             })
             .catch(err => console.log(err));
     }
@@ -228,13 +228,10 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                        <Select defaultValue="Movie"  onChange={handleChange}>
+                            {movieList.map((movie) => (
+                                <Option key={movie._id} value={movie.name}>{movie.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
@@ -305,12 +302,9 @@ const TheaterDetails = () => {
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
                         <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                            {loadedTheaters.map((theater) => (
+                                <Option key={theater._id} value={theater.name}>{theater.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
