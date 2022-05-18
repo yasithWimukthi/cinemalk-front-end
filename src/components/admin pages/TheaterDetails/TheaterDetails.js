@@ -7,6 +7,7 @@ import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import axios from "axios";
 
 
 const TheaterDetails = () => {
@@ -21,7 +22,7 @@ const TheaterDetails = () => {
         price: null,
         time: '',
         seatCount: null,
-        url: '',
+        imageURL: '',
     });
     const [theaterDetailList, setTheaterDetailList] = useState([])
     //fetch theater details from backend
@@ -48,12 +49,7 @@ const TheaterDetails = () => {
             .catch(err => console.log(err));
     }
 
-    useEffect(() => {
-        getAllTheaters(); // fetch theater details from backend theater service
-        getAllMovies(); // fetch movie details from backend movie service
-    }, []);
-
-    useEffect(() => {
+    const getAllTheaterDetails = () => {
         fetch('http://localhost:8090/api/theaterDetails')
             .then(res => res.json())
             .then(data => {
@@ -61,7 +57,14 @@ const TheaterDetails = () => {
                 console.log(data);
             })
             .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        getAllTheaterDetails();
+        getAllTheaters(); // fetch theater details from backend theater service
+        getAllMovies(); // fetch movie details from backend movie service
     }, []);
+
 
     const showAddMovieModal = () => {
         setIsAddMovieModalVisible(true);
@@ -90,20 +93,45 @@ const TheaterDetails = () => {
 
     const onFinish = (values) => {
         setMovie({
-            movieName: values.movieName,
-            theaterName: values.theaterName,
+            ...movie,
             price: values.price,
             time: values.time,
             seatCount: values.seatCount
         })
         console.log(movie)
+        axios.post('http://localhost:8090/api/theaterDetails/addTheater', movie)
+            .then(res => {
+                console.log(res);
+                setIsAddMovieModalVisible(false);
+                getAllTheaterDetails();
+            })
+            .catch(err => console.log(err));
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    function handleChange(value) {
+    function handleMovieChange(value) {
+        let imageUrl;
+        movieList.forEach(movie => {
+            if(movie.name === value){
+                imageUrl = movie.imageURL;
+            }
+        });
+        setMovie({
+            ...movie,
+            imageURL: imageUrl,
+            movieName: value,
+        })
+        console.log(`selected ${value}`);
+    }
+
+    function handleTheaterChange(value) {
+        setMovie({
+            ...movie,
+            theaterName: value,
+        })
         console.log(`selected ${value}`);
     }
 
@@ -177,7 +205,7 @@ const TheaterDetails = () => {
                                         return (
                                             theaterDetail.theater.map(theater => {
                                                 return (
-                                                    <tr key={index}>
+                                                    <tr key={theater._id}>
                                                         <td>{index+1}</td>
                                                         <td>{theaterDetail.movieName}</td>
                                                         <td>{theater.name}</td>
@@ -228,7 +256,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Select defaultValue="Movie"  onChange={handleChange}>
+                        <Select   onChange={handleMovieChange}>
                             {movieList.map((movie) => (
                                 <Option key={movie._id} value={movie.name}>{movie.name}</Option>
                             ))}
@@ -241,7 +269,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="Theater" onChange={handleChange}>
+                        <Select  onChange={handleTheaterChange}>
                             {loadedTheaters.map((theater) => (
                                 <Option key={theater._id} value={theater.name}>{theater.name}</Option>
                             ))}
@@ -301,7 +329,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
+                        <Select defaultValue="lucy"  onChange={handleTheaterChange}>
                             {loadedTheaters.map((theater) => (
                                 <Option key={theater._id} value={theater.name}>{theater.name}</Option>
                             ))}
@@ -314,7 +342,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="Theater"  onChange={handleChange}>
+                        <Select defaultValue="Theater"  onChange={handleTheaterChange}>
                             {loadedTheaters.map((theater) => (
                                 <Option key={theater._id} value={theater.name}>{theater.name}</Option>
                             ))}
