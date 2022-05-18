@@ -7,7 +7,7 @@ import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
+
 
 const TheaterDetails = () => {
     const MySwal = withReactContent(Swal)
@@ -15,30 +15,6 @@ const TheaterDetails = () => {
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [movieList, setMovieList] = useState([]);
-    const [theaterList, setTheaterList] = useState([]);
-    const [theaterDetailList, setTheaterDetailList] = useState([])
-    // const [theaterDetailList, setTheaterDetailList] = useState([
-    //     {
-    //         movieName: "123",
-    //         imageURL: "123.com",
-    //         theater: [
-    //             {
-    //                 name: "theater 1",
-    //                 price: "100",
-    //                 time: "12:00",
-    //                 seatCount: "100"
-    //
-    //             }
-    //             ,                {
-    //                 name: "theater 2",
-    //                 price: "100",
-    //                 time: "12:00",
-    //                 seatCount: "100"
-    //
-    //             }
-    //         ]
-    //     }
-    // ]);
     const [movie, setMovie] = useState({
         movieName: '',
         theaterName:'',
@@ -47,29 +23,41 @@ const TheaterDetails = () => {
         seatCount: null,
         url: '',
     });
-    
-    //fetch theater details from backend 
+    const [theaterDetailList, setTheaterDetailList] = useState([])
+    //fetch theater details from backend
     const [loadedTheaters, setLoadedTheaters] = useState([]);
 
+
     const getAllTheaters = () => {
-        getTheaters("/api/theaters")
-        .then((res) => {
-            setLoadedTheaters(res.data.data);
-            console.log(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        fetch('http://localhost:8090/api/theaters')
+            .then(res => res.json())
+            .then(data => {
+                setLoadedTheaters(data.data);
+                console.log(data.data);
+            })
+            .catch(err => console.log(err));
     }
+
+    const getAllMovies = () => {
+        fetch('http://localhost:8090/api/movies')
+            .then(res => res.json())
+            .then(data => {
+                setMovieList(data.data);
+                console.log(data.data);
+            })
+            .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         getAllTheaters(); // fetch theater details from backend theater service
+        getAllMovies(); // fetch movie details from backend movie service
     }, []);
 
     useEffect(() => {
         fetch('http://localhost:8090/api/theaterDetails')
             .then(res => res.json())
             .then(data => {
-                setTheaterDetailList(data);
+                setTheaterDetailList(data.theaterDetails);
                 console.log(data);
             })
             .catch(err => console.log(err));
@@ -184,20 +172,6 @@ const TheaterDetails = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {/*<tr>*/}
-                                {/*    <td>1</td>*/}
-                                {/*    <td>Vincent Williamson</td>*/}
-                                {/*    <td>Theater name</td>*/}
-                                {/*    <td>Show Time</td>*/}
-                                {/*    <td>Seat Count</td>*/}
-                                {/*    <td>Price</td>*/}
-                                {/*    <td>*/}
-                                {/*        <ul className="action-list">*/}
-                                {/*            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>*/}
-                                {/*            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>*/}
-                                {/*        </ul>*/}
-                                {/*    </td>*/}
-                                {/*</tr>*/}
                                 {
                                     theaterDetailList && theaterDetailList.length>0 && theaterDetailList.map((theaterDetail, index) => {
                                         return (
