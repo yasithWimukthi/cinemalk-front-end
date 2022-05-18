@@ -9,7 +9,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import Navigation from "../../../nav_bar/nav";
+import Navigation from "../../../nav_bar/Nav";
 import MovieBooking from "./MovieBooking";
 import "./movies.scss";
 

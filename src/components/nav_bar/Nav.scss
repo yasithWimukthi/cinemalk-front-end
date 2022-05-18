@@ -28,12 +28,16 @@
 .log{
   font-size: 26px;
   color: rgb(250, 250, 250) !important;
+  text-shadow: 3px 5px 20px #e58e0a,
+  -2px 1px 30px #d7560e;
 }
 
-
+.log:hover{
+  color: rgb(222, 175, 19) !important;
+}
 
 #items {
-  margin-left: 25%;
+  margin-left: 28%;
 }
 
 @media (max-width: 1400px) {
@@ -173,8 +177,9 @@
     margin-left: 0px;
   }
   .cart-icon {
-    margin-left: 0px;
+    margin-left: 0px!important;
   }
+
 }
 
 //cart-icon

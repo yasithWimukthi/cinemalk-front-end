@@ -146,7 +146,7 @@ const MovieList = () => {
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td> <Avatar src="https://joeschmoe.io/api/v1/random" />Vincent Williamson</td>
+                                        <td> Vincent Williamson</td>
                                         <td>Description</td>
                                         <td>Cast</td>
                                         <td>
