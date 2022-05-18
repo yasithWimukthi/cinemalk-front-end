@@ -7,7 +7,8 @@ import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { getTheaters } from '../../../API/Admin pages/TheatersAPI';
+import axios from "axios";
+
 
 const TheaterDetails = () => {
     const MySwal = withReactContent(Swal)
@@ -15,65 +16,55 @@ const TheaterDetails = () => {
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [movieList, setMovieList] = useState([]);
-    const [theaterList, setTheaterList] = useState([]);
-    const [theaterDetailList, setTheaterDetailList] = useState([])
-    // const [theaterDetailList, setTheaterDetailList] = useState([
-    //     {
-    //         movieName: "123",
-    //         imageURL: "123.com",
-    //         theater: [
-    //             {
-    //                 name: "theater 1",
-    //                 price: "100",
-    //                 time: "12:00",
-    //                 seatCount: "100"
-    //
-    //             }
-    //             ,                {
-    //                 name: "theater 2",
-    //                 price: "100",
-    //                 time: "12:00",
-    //                 seatCount: "100"
-    //
-    //             }
-    //         ]
-    //     }
-    // ]);
     const [movie, setMovie] = useState({
         movieName: '',
         theaterName:'',
         price: null,
         time: '',
         seatCount: null,
-        url: '',
+        imageURL: '',
     });
-    
-    //fetch theater details from backend 
+    const [theaterDetailList, setTheaterDetailList] = useState([])
+    //fetch theater details from backend
     const [loadedTheaters, setLoadedTheaters] = useState([]);
 
-    const getAllTheaters = () => {
-        getTheaters("/api/theaters")
-        .then((res) => {
-            setLoadedTheaters(res.data.data);
-            console.log(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    useEffect(() => {
-        getAllTheaters(); // fetch theater details from backend theater service
-    }, []);
 
-    useEffect(() => {
-        fetch('http://localhost:8090/api/theaterDetails')
+    const getAllTheaters = () => {
+        fetch('http://localhost:8090/api/theaters')
             .then(res => res.json())
             .then(data => {
-                setTheaterDetailList(data);
+                setLoadedTheaters(data.data);
+                console.log(data.data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const getAllMovies = () => {
+        fetch('http://localhost:8090/api/movies')
+            .then(res => res.json())
+            .then(data => {
+                setMovieList(data);
                 console.log(data);
             })
             .catch(err => console.log(err));
+    }
+
+    const getAllTheaterDetails = () => {
+        fetch('http://localhost:8090/api/theaterDetails')
+            .then(res => res.json())
+            .then(data => {
+                setTheaterDetailList(data.theaterDetails);
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        getAllTheaterDetails();
+        getAllTheaters(); // fetch theater details from backend theater service
+        getAllMovies(); // fetch movie details from backend movie service
     }, []);
+
 
     const showAddMovieModal = () => {
         setIsAddMovieModalVisible(true);
@@ -102,20 +93,49 @@ const TheaterDetails = () => {
 
     const onFinish = (values) => {
         setMovie({
-            movieName: values.movieName,
-            theaterName: values.theaterName,
-            price: values.price,
-            time: values.time,
-            seatCount: values.seatCount
+            ...movie,
+            theater: {
+                name: movie.theaterName,
+                price: values.price,
+                time: values.time,
+                seatCount: values.seatCount
+            }
+
         })
         console.log(movie)
+        axios.post('http://localhost:8090/api/theaterDetails/addTheater', movie)
+            .then(res => {
+                console.log(res);
+                setIsAddMovieModalVisible(false);
+                getAllTheaterDetails();
+            })
+            .catch(err => console.log(err));
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    function handleChange(value) {
+    function handleMovieChange(value) {
+        let imageUrl;
+        movieList.forEach(movie => {
+            if(movie.name === value){
+                imageUrl = movie.imageURL;
+            }
+        });
+        setMovie({
+            ...movie,
+            imageURL: imageUrl,
+            movieName: value,
+        })
+        console.log(`selected ${value}`);
+    }
+
+    function handleTheaterChange(value) {
+        setMovie({
+            ...movie,
+            theaterName: value,
+        })
         console.log(`selected ${value}`);
     }
 
@@ -184,26 +204,12 @@ const TheaterDetails = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {/*<tr>*/}
-                                {/*    <td>1</td>*/}
-                                {/*    <td>Vincent Williamson</td>*/}
-                                {/*    <td>Theater name</td>*/}
-                                {/*    <td>Show Time</td>*/}
-                                {/*    <td>Seat Count</td>*/}
-                                {/*    <td>Price</td>*/}
-                                {/*    <td>*/}
-                                {/*        <ul className="action-list">*/}
-                                {/*            <li><a href="#" data-tip="edit" onClick={showEditMovieModal}><i className="fa fa-edit"></i></a></li>*/}
-                                {/*            <li><a href="#" data-tip="delete" onClick={handleDelete}><i className="fa fa-trash"></i></a></li>*/}
-                                {/*        </ul>*/}
-                                {/*    </td>*/}
-                                {/*</tr>*/}
                                 {
                                     theaterDetailList && theaterDetailList.length>0 && theaterDetailList.map((theaterDetail, index) => {
                                         return (
                                             theaterDetail.theater.map(theater => {
                                                 return (
-                                                    <tr key={index}>
+                                                    <tr key={theater._id}>
                                                         <td>{index+1}</td>
                                                         <td>{theaterDetail.movieName}</td>
                                                         <td>{theater.name}</td>
@@ -254,13 +260,10 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                        <Select   onChange={handleMovieChange}>
+                            {movieList.map((movie) => (
+                                <Option key={movie._id} value={movie.name}>{movie.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
@@ -270,7 +273,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="Theater" onChange={handleChange}>
+                        <Select  onChange={handleTheaterChange}>
                             {loadedTheaters.map((theater) => (
                                 <Option key={theater._id} value={theater.name}>{theater.name}</Option>
                             ))}
@@ -330,13 +333,10 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please input movie name!' }]}
                     >
-                        <Select defaultValue="lucy"  onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                                Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                        <Select defaultValue="lucy"  onChange={handleTheaterChange}>
+                            {loadedTheaters.map((theater) => (
+                                <Option key={theater._id} value={theater.name}>{theater.name}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
@@ -346,7 +346,7 @@ const TheaterDetails = () => {
                         tooltip="This is a required field"
                         rules={[{ required: true, message: 'Please select a theater!' }]}
                     >
-                        <Select defaultValue="Theater"  onChange={handleChange}>
+                        <Select defaultValue="Theater"  onChange={handleTheaterChange}>
                             {loadedTheaters.map((theater) => (
                                 <Option key={theater._id} value={theater.name}>{theater.name}</Option>
                             ))}
