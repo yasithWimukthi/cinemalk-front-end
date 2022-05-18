@@ -94,9 +94,13 @@ const TheaterDetails = () => {
     const onFinish = (values) => {
         setMovie({
             ...movie,
-            price: values.price,
-            time: values.time,
-            seatCount: values.seatCount
+            theater: {
+                name: movie.theaterName,
+                price: values.price,
+                time: values.time,
+                seatCount: values.seatCount
+            }
+
         })
         console.log(movie)
         axios.post('http://localhost:8090/api/theaterDetails/addTheater', movie)
