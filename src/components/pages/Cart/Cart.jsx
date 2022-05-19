@@ -2,12 +2,12 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CartItem from "./CartItem";
 import "./cart.scss";
-import NavBar from "./NavBar";
+
 
 const Cart = () => {
   return (
     <>
-      <NavBar />
+
       <Container className="cart-page-wrapper">
         <h2></h2>
         <CartItem />

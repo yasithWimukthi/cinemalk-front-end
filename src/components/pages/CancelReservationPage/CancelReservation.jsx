@@ -1,6 +1,6 @@
 import React from "react";
-import Navigation from "../../nav_bar/nav";
-import Footer from "../../footer/footer";
+import Navigation from "../../nav_bar/Nav";
+import Footer from "../../footer/Footer";
 import ReservationCancel from "../CancelReservationPage/Reservations/ReservationCancel";
 
 const CancelReservation = () => {

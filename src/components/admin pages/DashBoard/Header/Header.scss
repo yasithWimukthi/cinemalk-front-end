@@ -1,0 +1,18 @@
+.logBtn {
+  width: 120px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  background: #fac104;
+  cursor: pointer;
+  margin-top: 8px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background-size: 300% 100%;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}

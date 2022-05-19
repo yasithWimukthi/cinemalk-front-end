@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import '../../nav_bar/nav.scss';
+import '../../nav_bar/Nav.scss';
 import { Link } from 'react-router-dom';
 
 
