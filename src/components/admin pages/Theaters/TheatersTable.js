@@ -159,7 +159,7 @@ const Theaters = () => {
                                 </div>
                                 <div className="col-sm-9 col-xs-12 text-right">
                                     <div className="btn_group" style={{display:'flex'}}>
-                                        <input type="text" className="form-control" placeholder="Search" style={{width:'90%',height:'50px'}}/>
+                                        <input type="text" style={{width:'90%',height:'50px'}} className="form-control" placeholder="Search"/>
                                         <button className="btn btn-default mx-3" title="Reload" style={{marginTop:0,width:'20%'}}><i
                                             className="fa-solid fa-magnifying-glass"></i></button>
                                         <button className="btn btn-default" title="Add new" style={{marginTop:0}} onClick={showAddTheaterModal}><i
