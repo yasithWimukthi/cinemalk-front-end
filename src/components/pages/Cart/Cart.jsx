@@ -1,10 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CartItem from "./CartItem";
 import "./cart.scss";
-
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import { Modal, Button } from 'antd';
 
 const Cart = () => {
+  const [isPayFromCard, setIsPayFromCard] = useState(false);
+  const [isPayFromMobile, setIsPayFromMobile] = useState(false);
+
+  const showPayFromCard = () => {
+    setIsPayFromCard(true);
+  };
+
+
+  const hidePayFromCard = () => {
+    setIsPayFromCard(false);
+  };
+
+  const showPayFromMobile = () => {
+    setIsPayFromMobile(true);
+  };
+
+
+  const hidePayFromMobile = () => {
+    setIsPayFromMobile(false);
+  };
+
   return (
     <>
 
@@ -33,12 +56,98 @@ const Cart = () => {
               </div>
               <hr className="straight-line" />
               <div className="checkout-btn">
-                <button>CHECKOUT</button>
+                <button data-toggle="modal" data-target="#staticBackdrop" onClick={showPayFromCard}>PAY FROM CARD</button>
+                <button data-toggle="modal" data-target="#staticBackdrop" onClick={showPayFromMobile}>PAY FROM MOBILE</button>
               </div>
             </Col>
           </Row>
         </div>
       </Container>
+
+      {
+        isPayFromCard && (
+        <div className="card mt-50 mb-50">
+          <div className="card-title mx-auto">
+            Pay From Card
+          </div>
+          <div className="nav">
+            <ul className="mx-auto">
+              <li><a href="#">Account</a></li>
+              <li className="active"><a href="#">Payment</a></li>
+            </ul>
+          </div>
+          <form>
+            <div className="row row-1">
+              <div className="col-2"><img className="img-fluid"
+                                          src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/></div>
+            </div>
+            <span id="card-header">Add new card:</span>
+            <div className="row-1">
+              <div className="row row-2">
+                <span id="card-inner">Card holder name</span>
+              </div>
+              <div className="row row-2">
+                <input type="text" placeholder="Bojan Viner"/>
+              </div>
+            </div>
+            <div className="row three">
+              <div className="col-7">
+                <div className="row-1">
+                  <div className="row row-2">
+                    <span id="card-inner">Card number</span>
+                  </div>
+                  <div className="row row-2">
+                    <input type="text" placeholder="5134-5264-4"/>
+                  </div>
+                </div>
+              </div>
+              <div className="col-2">
+                <input type="text" placeholder="Exp. date"/>
+              </div>
+              <div className="col-2">
+                <input type="text" placeholder="CVV"/>
+              </div>
+            </div>
+            <button className="btn d-flex mx-auto"><b>Pay Now</b></button>
+          </form>
+        </div> )
+      }
+
+      {
+          isPayFromMobile && (
+              <div className="card mt-50 mb-50">
+                <div className="card-title mx-auto">
+                  Pay From Mobile
+                </div>
+                <div className="nav">
+                  <ul className="mx-auto">
+                    <li><a href="#">Account</a></li>
+                    <li className="active"><a href="#">Mobile Number</a></li>
+                  </ul>
+                </div>
+                <form>
+                  <span id="card-header">Add mobile:</span>
+                  <div className="row-1">
+                    <div className="row row-2">
+                      <span id="card-inner">Owner name</span>
+                    </div>
+                    <div className="row row-2">
+                      <input type="text" placeholder="Bojan Viner"/>
+                    </div>
+                  </div>
+                  <div className="row-1">
+                    <div className="row row-2">
+                      <span id="card-inner">Mobile Number</span>
+                    </div>
+                    <div className="row row-2">
+                      <input type="text" placeholder="0714044488"/>
+                    </div>
+                  </div>
+                  <button className="btn d-flex mx-auto"><b>Pay Now</b></button>
+                </form>
+              </div> )
+      }
+
     </>
   );
 };
