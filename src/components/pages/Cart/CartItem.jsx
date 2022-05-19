@@ -5,6 +5,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 
+/**
+ * @description CartItem component
+ * @returns {JSX}
+ */
 const CartItem = () => {
   return (
     <>
