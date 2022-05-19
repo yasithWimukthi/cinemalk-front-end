@@ -1,5 +1,7 @@
 import { getRequest, deleteRequest } from "../util";
 
-export const getReservations = (uri) => getRequest(uri);
+const BASE_URL = "http://localhost:4000";
 
-export const deleteReservation = (uri, id) => deleteRequest(uri, id);
+export const getReservations = (uri) => getRequest(BASE_URL, uri);
+
+export const deleteReservation = (uri, id) => deleteRequest(BASE_URL, uri, id);
