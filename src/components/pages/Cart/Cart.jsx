@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CartItem from "./CartItem";
+import Swal from 'sweetalert2'
 import "./cart.scss";
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-import { Modal, Button } from 'antd';
+
 
 const Cart = () => {
   const [isPayFromCard, setIsPayFromCard] = useState(false);
@@ -27,6 +26,24 @@ const Cart = () => {
   const hidePayFromMobile = () => {
     setIsPayFromMobile(false);
   };
+
+  const payWithCard = (e) => {
+    e.preventDefault();
+    Swal.fire(
+        'Payment is successful!',
+        '',
+        'success'
+    )
+  }
+
+    const payWithMobile = (e) => {
+      e.preventDefault();
+      Swal.fire(
+          'Payment is successful!',
+          '',
+          'success'
+      )
+    }
 
   return (
     <>
@@ -76,7 +93,7 @@ const Cart = () => {
               <li className="active"><a href="#">Payment</a></li>
             </ul>
           </div>
-          <form>
+          <form onSubmit={payWithCard}>
             <div className="row row-1">
               <div className="col-2"><img className="img-fluid"
                                           src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/></div>
@@ -108,7 +125,7 @@ const Cart = () => {
                 <input type="text" placeholder="CVV"/>
               </div>
             </div>
-            <button className="btn d-flex mx-auto"><b>Pay Now</b></button>
+            <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>
           </form>
         </div> )
       }
@@ -125,7 +142,7 @@ const Cart = () => {
                     <li className="active"><a href="#">Mobile Number</a></li>
                   </ul>
                 </div>
-                <form>
+                <form onSubmit={payWithMobile}>
                   <span id="card-header">Add mobile:</span>
                   <div className="row-1">
                     <div className="row row-2">
@@ -143,7 +160,7 @@ const Cart = () => {
                       <input type="text" placeholder="0714044488"/>
                     </div>
                   </div>
-                  <button className="btn d-flex mx-auto"><b>Pay Now</b></button>
+                  <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>
                 </form>
               </div> )
       }
