@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Navigation from "../../../nav_bar/Nav";
 import MovieBooking from "./MovieBooking";
+import {QRCodeSVG} from 'qrcode.react';
 import "./movies.scss";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -92,6 +93,7 @@ const MovieCard = (props) => {
               <CardContent>
                 <Typography paragraph>Overview:</Typography>
                 <Typography>{props.movieDetails.overview}</Typography>
+                <QRCodeSVG value={props.movieDetails.overview} style={{marginTop:'20px'}}/>
               </CardContent>
             </Collapse>
           </CardContent>
