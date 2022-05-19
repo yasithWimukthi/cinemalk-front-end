@@ -118,14 +118,18 @@ const TheaterDetails = () => {
 
     function handleMovieChange(value) {
         let imageUrl;
+        let overview;
+
         movieList.forEach(movie => {
             if(movie.name === value){
-                imageUrl = movie.imageURL;
+                imageUrl = movie.poster;
+                overview = movie.overview;
             }
         });
         setMovie({
             ...movie,
             imageURL: imageUrl,
+            overview,
             movieName: value,
         })
         console.log(`selected ${value}`);
@@ -262,7 +266,7 @@ const TheaterDetails = () => {
                     >
                         <Select   onChange={handleMovieChange}>
                             {movieList.map((movie) => (
-                                <Option key={movie._id} value={movie.name}>{movie.name}</Option>
+                                <Option key={movie._id} value={movie.title}>{movie.title}</Option>
                             ))}
                         </Select>
                     </Form.Item>
