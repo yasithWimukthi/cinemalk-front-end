@@ -8,7 +8,7 @@ import Login from './components/pages/Login/Login'
 import Nav from './components/nav_bar/Nav'
 import Footer from './components/footer/Footer'
 import Register from "./components/pages/Register/Register"
-import MovieList from "./components/admin pages/Movies/MovieList";
+import MovieList from "./components/admin pages/Movies/MoviesTable";
 import Theaters from "./components/admin pages/Theaters/TheatersTable";
 import TheaterDetails from "./components/admin pages/TheaterDetails/TheaterDetails";
 import ReservationCancel from "./components/pages/CancelReservationPage/Reservations/ReservationCancel";
