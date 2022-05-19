@@ -8,10 +8,13 @@ import { Link } from 'react-router-dom';
 import {useNavigate} from "react-router";
 
 
+
+
 const Navigation = () => {
     const navigate = useNavigate()
     const [expand, setexpand] = React.useState(false);
     const [pathstate, setpathstate] = React.useState('#home');
+    const[user,setUser] = React.useState(localStorage.getItem("token"));
 
     window.onscroll = function () {
         if (window.pageYOffset === 0) {
@@ -19,7 +22,7 @@ const Navigation = () => {
         }
     };
 
-    let itemCount = 0;
+    
 
     React.useEffect(() => {
         const element = document.getElementById(pathstate);
@@ -32,6 +35,19 @@ const Navigation = () => {
     const login =()=>{
         navigate("/login")
     }
+
+    const logOut = () =>{
+
+        localStorage.clear();
+        setUser(null)
+        navigate("/login")
+    }
+
+    const booking = ()=>{
+        navigate("/reservations")
+    }
+
+     
 
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>
@@ -59,16 +75,22 @@ const Navigation = () => {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#faq'))}>
-                                <p />  Theaters
+                            <Nav.Link onClick={booking}>
+                                <p />  Bookings
                             </Nav.Link>
                         </Nav.Item>
+                        {user?( 
+                        <>
                         <Nav.Item>
                             <Link to="/cart"><button className="cart-icon"><ShoppingCartOutlinedIcon /></button></Link>
                         </Nav.Item>
-                        <Nav.Item>
-                            <button className="logBtn" onClick={login}>Login</button>
+                       <Nav.Item>
+                            <button className="logBtn" onClick={logOut}>LogOut</button>
                         </Nav.Item>
+                        </>
+                        ):(<Nav.Item>
+                            <button className="logBtn" onClick={login}>Login</button>
+                        </Nav.Item>)}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
