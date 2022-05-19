@@ -21,11 +21,9 @@ const FlexBox = styled(Box)(() => ({
     alignItems: 'center',
 }))
 
-
 const JustifyBox = styled(FlexBox)(() => ({
     justifyContent: 'center',
 }))
-
 
 const ContentBox = styled(Box)(() => ({
     height: '100%',
@@ -35,16 +33,12 @@ const ContentBox = styled(Box)(() => ({
     justifyContent: 'center',
 }))
 
-
-
 const Root = styled(JustifyBox)(() => ({
     marginTop:'40px',
     background: '#161b22',
     height:'800px'
 
 }))
-
-
 
 const InnerTheme = createTheme({
     palette: {
@@ -102,8 +96,6 @@ const Register = () => {
             mobile: values.mobile,
             type:'user'
           }
-
-
 
             api.SignUp(data).then(res => {
                     console.log(res);

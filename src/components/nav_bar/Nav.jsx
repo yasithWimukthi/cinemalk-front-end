@@ -7,9 +7,11 @@ import './Nav.scss';
 import { Link } from 'react-router-dom';
 import {useNavigate} from "react-router";
 
-
-
-
+/**
+ * @description Nav component
+ * @returns {JSX}
+ * @returns {JSX.Element}
+ */
 const Navigation = () => {
     const navigate = useNavigate()
     const [expand, setexpand] = React.useState(false);
@@ -21,8 +23,6 @@ const Navigation = () => {
             setpathstate('#home');
         }
     };
-
-    
 
     React.useEffect(() => {
         const element = document.getElementById(pathstate);
@@ -46,8 +46,6 @@ const Navigation = () => {
     const booking = ()=>{
         navigate("/reservations")
     }
-
-     
 
     return (
         <Navbar expanded={expand} fixed="top" expand="md" className={'navbar'}>

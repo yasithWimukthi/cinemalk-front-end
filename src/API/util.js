@@ -1,7 +1,11 @@
-
 /**APIs calls of all CRUD http requests are implemented in this class */
 
 const axios = require("axios").default;
+
+/**
+ * @description This file contains all the APIs calls of all CRUD http requests
+ */
+
 
 export const getRequest = (BASE_URL, uri) => {
   return new Promise((resolve, reject) => {
@@ -19,6 +23,7 @@ export const getRequest = (BASE_URL, uri) => {
       });
   });
 };
+
 
 export const getByIDRequest = (BASE_URL, uri, id) => {
   return new Promise((resolve, reject) => {

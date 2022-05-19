@@ -59,6 +59,10 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
+/**
+ * @description Login Component
+ * @returns {JSX} JSX
+ */
 const Login = () => {
   const navigate = useNavigate();
 
