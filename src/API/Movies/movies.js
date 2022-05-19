@@ -1,14 +1,8 @@
 import http from "./base";
 
-
-
-
 const getMovies = ()=>{
     return http.get("/");
 }
-
-
-
 
 const all ={
     getMovies
