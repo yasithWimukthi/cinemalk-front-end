@@ -5,11 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 
-/**
- * @description CartItem component
- * @returns {JSX}
- */
-const CartItem = () => {
+const CartItem = (props) => {
   return (
     <>
       <Container className="cart-item-card-wrap">
@@ -19,18 +15,20 @@ const CartItem = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image="https://image.tmdb.org/t/p/w500/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg"
-                alt="green iguana"
+                image={props.bookingDetails.movieImg}
+                alt={props.bookingDetails.movieName}
               />
             </Col>
             <Col sm={9} className="cart-card-right">
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Movie Name - Bohemian Rhapsody
+                  Movie Name - {props.bookingDetails.movieName}
                 </Typography>
-                <Typography variant="body2">No of tickets: x</Typography>
-                <Typography variant="body2">Theater: One Galle Face</Typography>
-                <Typography variant="body2">Date: 12/02/2022</Typography>
+                <Typography variant="body2">No of tickets: { props.bookingDetails.noOfTickets}</Typography>
+                <Typography variant="body2">Ticket price: { props.bookingDetails.ticketPrice}</Typography>
+                <Typography variant="body2">Theater: { props.bookingDetails.theater}</Typography>
+                <Typography variant="body2">Date:{ props.bookingDetails.bookingDate}</Typography>
+                <Typography variant="body2">Time:{ props.bookingDetails.bookedTime}</Typography>
                 <button className="remove-from-cart-btn">Remove</button>
               </CardContent>
             </Col>
