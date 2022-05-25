@@ -12,6 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import theaters from "./movieTheaters.json";
+import moment from 'moment'
+import { addToCart } from "../../../../API/Customer pages/CartAPI";
 
 export default function MovieBooking(props) {
   const [bookingDetails, setBookingDetails] = React.useState({
@@ -20,25 +22,40 @@ export default function MovieBooking(props) {
     bookingDate: new Date(),
     theater: "",
     bookedTime: "",
-    noOfTickets: "",
+    noOfTickets: ""
   });
   const [formErrors, setFormErrors] = React.useState({});
   const [isSubmit, setIsSubmit] = React.useState(false);
 
   const handleDateOnChange = (e) => {
-    setBookingDetails({ ...bookingDetails, bookingDate: e });
+    const formattedDate = moment(e).format('DD/MM/YYYY');
+    setBookingDetails({ ...bookingDetails, bookingDate: formattedDate });
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setBookingDetails({ ...bookingDetails, [name]: value });
   };
+
+  const addBookingToCart = (bookingDetails) => {
+    addToCart("/api/cart", bookingDetails)
+      .then((res) => {
+      console.log('cart added', res);
+      })
+      .catch((err) => {
+      console.log('cart not added', err);
+    })
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     //validate the input forms
     const errorsFoundFromValidation = validate(bookingDetails);
     setFormErrors(errorsFoundFromValidation);
     setIsSubmit(true);
+    bookingDetails.bookingDate = moment(bookingDetails.bookingDate).format('DD/MM/YYYY'); //formate date input
+    bookingDetails.noOfTickets = parseInt(bookingDetails.noOfTickets); //convert noOfTickets into an integer
     console.log("form", bookingDetails);
+    addBookingToCart(bookingDetails);
+
   };
   const validate = (values) => {
     let errors = {};
