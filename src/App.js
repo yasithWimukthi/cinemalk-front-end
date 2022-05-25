@@ -10,7 +10,6 @@ import Footer from './components/footer/Footer'
 import Register from "./components/pages/Register/Register"
 import MovieList from "./components/admin pages/Movies/MoviesTable";
 import Theaters from "./components/admin pages/Theaters/TheatersTable";
-import TheaterDetails from "./components/admin pages/TheaterDetails/TheaterDetails";
 import ReservationCancel from "./components/pages/CancelReservationPage/Reservations/ReservationCancel";
 import Dashboard from "./components/admin pages/DashBoard/DashLayout"
 
@@ -39,7 +38,6 @@ function App() {
             <Route path ="/dash-board">
                 <Route path="movies" element={<Dashboard component={<MovieList />}/>} />
                 <Route path="theaters" element={<Dashboard component={<Theaters/> }/>} />
-                <Route path="details" element={<Dashboard component={<TheaterDetails/>}/>} />
             </Route>
       </Routes>
       </BrowserRouter>

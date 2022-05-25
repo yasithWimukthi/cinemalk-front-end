@@ -59,6 +59,7 @@ const validationSchema = yup.object({
         .matches(/^[A-Za-z ]*$/, 'Please enter a valid name')
         .required('Required'),
     email:  Yup.string().email('Invalid email').required('Required'),
+    mobile:yup.string('wrong number'),
     password: yup
         .string('Enter your password')
         .min(8, 'Password should be of minimum 8 characters length')
@@ -93,8 +94,8 @@ const Register = () => {
             password: '',
             firstName:'',
             lastName:'',
-            passConf:''
-
+            passConf:'',
+            mobile:''
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -165,6 +166,19 @@ const Register = () => {
                                 onChange={formik.handleChange}
                                 error={formik.touched.email && Boolean(formik.errors.email)}
                                 helperText={formik.touched.email&& formik.errors.email}
+                                style={{marginBottom:"10px"}}
+                            />
+
+                            <TextField
+                                fullWidth
+                                id="mobile"
+                                name="mobile"
+                                label="Phone Number"
+                                type="text"
+                                value={formik.values.mobile}
+                                onChange={formik.handleChange}
+                                error={formik.touched.mobile && Boolean(formik.errors.mobile)}
+                                helperText={formik.touched.mobile && formik.errors.mobile}
                                 style={{marginBottom:"10px"}}
                             />
                             <TextField

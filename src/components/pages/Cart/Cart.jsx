@@ -4,9 +4,10 @@ import CartItem from "./CartItem";
 import Swal from 'sweetalert2'
 import "./cart.scss";
 import { clearCart, getCartByUserId, removeFromCart } from "../../../API/Customer pages/CartAPI";
-import { Pay,PayMobile } from "../../../API/Customer pages/paymentApi";
+import pay from "../../../API/Payment services/payment_api";
 import {useNavigate} from "react-router";
-
+import eService from "../../../API/Payment services/email_api"
+import smsService from "../../../API/Payment services/sms_api"
 const Cart = () => {
 
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ const Cart = () => {
   const[payment,setPayment] = useState({});
   const[mobile,setMobile] = useState({});
   const uid = localStorage.getItem('user_id');
-
+  const email = localStorage.getItem('email');
+  const mob = localStorage.getItem('phone');
+  const nm= localStorage.getItem('name');
       // fetch theater details from backend theater service
       const getcartItems = () => {
         getCartByUserId("/api/cart/", uid)
@@ -86,33 +89,37 @@ const Cart = () => {
       number:payment.number,
       date:payment.date,
       cvv:payment.cvv,
-      total:cartDetails.total
+      total:cartDetails.totalPrice
     }
 
-    Pay("/api/pay", data)
-        .then((res) => {
+      pay.payByCard(data)
+        .then(async () => {
+          let data = {
+            email: email,
+            name: nm,
+            description: "Payment has made"
+          }
+          await  eService.sendEmail(data)
+        }).then(async () => {
+        let d = {
+          number: mob,
+          name: nm,
+        }
 
-        }).then(()=>{
-          //clear cart
-        }).then(()=>{
+        await smsService.sendSms(d)
+      }).then(async () => {
+          await clearCart('/api/cart/clear-cart/', uid)
+      }).then(()=>{
             Swal.fire(
-                'Payment is successful!',
+                'Payment is successful! Email and SMS has sent',
                 '',
                 'success'
             )
-        })
+        }).then(()=>{
+            navigate("/reservations")
+      })
         .catch((err) => {
           console.log(err);
-        }).finally(() => {
-          //clear cart 
-          clearCart('/api/cart/clear-cart/', uid)
-            .then((res) => {
-              //redirrect to bookings pg
-              navigate('/reservations');
-            })
-            .catch((err) => {
-            console.log(err);
-          })
         })
 
 
@@ -126,32 +133,38 @@ const Cart = () => {
       user_id:uid,
       owner:mobile.owner,
       phone:mobile.phone,
-      total:cartDetails.total
+      total:cartDetails.totalPrice
     }
 
 
-    PayMobile("/api/payMobile", data)
-        .then((res) => {
+    pay.payByMobile("/api/payM", data)
+        .then(async () => {
+          let data = {
+            email: email,
+            name: nm,
+            description: "Payment has made"
+          }
+          await  eService.sendEmail(data)
+        }).then(async () => {
+      let d = {
+        number: mob,
+        name: nm,
+      }
 
-        }).then(()=>{
+      await smsService.sendSms(d)
+    }).then(async () => {
+      await clearCart('/api/cart/clear-cart/', uid)
+    }).then(()=>{
       Swal.fire(
-          'Payment is successful!',
+          'Payment is successful! Email and SMS has sent',
           '',
           'success'
       )
+    }).then(()=>{
+      navigate("/reservations")
     })
         .catch((err) => {
           console.log(err);
-        }).finally(() => {
-          //clear cart 
-          clearCart('/api/cart/clear-cart/', uid)
-            .then((res) => {
-              //redirrect to bookings pg
-              navigate('/reservations');
-            })
-            .catch((err) => {
-            console.log(err);
-          })
         })
 
 
@@ -230,7 +243,7 @@ const Cart = () => {
                     <span id="card-inner" >Card holder name</span>
                   </div>
                   <div className="row row-2">
-                    <input type="text"  name="holder" onChange={handleChange}/>
+                    <input type="text"  name="holder" onChange={handleChange} required/>
                   </div>
                 </div>
                 <div className="row three">
@@ -240,15 +253,15 @@ const Cart = () => {
                         <span id="card-inner">Card number</span>
                       </div>
                       <div className="row row-2">
-                        <input type="text"  name="number" onChange={handleChange}/>
+                        <input type="text"  name="number" onChange={handleChange} required/>
                       </div>
                     </div>
                   </div>
                   <div className="col-2">
-                    <input type="date" placeholder="Exp. date" name="date" onChange={handleChange}/>
+                    <input type="date" placeholder="Exp. date" name="date" onChange={handleChange} required/>
                   </div>
                   <div className="col-2">
-                    <input type="text" placeholder="CVV" name="cvv" onChange={handleChange}/>
+                    <input type="text" placeholder="CVV" name="cvv" onChange={handleChange} required/>
                   </div>
                 </div>
                 <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>
@@ -275,7 +288,7 @@ const Cart = () => {
                       <span id="card-inner">Owner name</span>
                     </div>
                     <div className="row row-2">
-                      <input type="text" placeholder="Bojan Viner" name="owner" onChange={handlemChange}/>
+                      <input type="text" placeholder="Bojan Viner" name="owner" onChange={handlemChange} required/>
                     </div>
                   </div>
                   <div className="row-1">
@@ -283,7 +296,7 @@ const Cart = () => {
                       <span id="card-inner">Mobile Number</span>
                     </div>
                     <div className="row row-2">
-                      <input type="text" placeholder="0714044488" name="phone" onChange={handlemChange}/>
+                      <input type="text" placeholder="0714044488" name="phone" onChange={handlemChange} required/>
                     </div>
                   </div>
                   <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>

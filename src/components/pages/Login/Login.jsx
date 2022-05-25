@@ -94,6 +94,9 @@ const Login = () => {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user_id", res.data.userId);
           localStorage.setItem("type", res.data.type);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("phone", res.data.mobile);
+          localStorage.setItem("name", res.data.name);
           navigate("/");
 
 

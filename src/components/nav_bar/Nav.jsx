@@ -51,7 +51,7 @@ const Navigation = () => {
         navigate("/dash-board/movies")
     }
     const home = ()=>{
-        navigate("/")
+        window.location.href="/"
     }
 
     return (

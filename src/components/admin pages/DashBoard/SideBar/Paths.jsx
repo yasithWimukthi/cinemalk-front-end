@@ -23,14 +23,6 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'details',
-            title: 'Details',
-            type: 'item',
-            url: '/dash-board/details',
-            icon: AcUnitIcon,
-            breadcrumbs: false
-        },
-        {
             id: 'home',
             title: 'Home',
             type: 'item',
