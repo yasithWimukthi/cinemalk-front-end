@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import CartItem from "./CartItem";
 import Swal from 'sweetalert2'
 import "./cart.scss";
-import { getCartByUserId } from "../../../API/Customer pages/CartAPI";
+import { getCartByUserId, removeFromCart } from "../../../API/Customer pages/CartAPI";
 
 
 const Cart = () => {
@@ -32,11 +32,23 @@ const Cart = () => {
         .catch((err) => {
           console.log(err);
         });
-    }
+      }
 
     useEffect(() => {
       getcartItems(); //details of all theaters will be fetched when component renders for the first time
     }, []);
+  
+    const handleDelete = (id) => {
+      //remove item from cart
+      removeFromCart("/api/cart/", id)
+      .then((res) => {
+          console.log('ress', res.data)
+          getcartItems();
+      })
+      .catch((err) => {
+          console.log('err', err);
+      }) 
+  }
 
   const showPayFromCard = () => {
     setIsPayFromCard(true);
@@ -80,7 +92,7 @@ const Cart = () => {
         <h2></h2>
         {
           cartItems.map((item) => (
-            <CartItem key={item._id} bookingDetails={item} />
+            <CartItem key={item._id} bookingDetails={item} handleRemove={handleDelete}/>
           ))
         }
         {/* cart total */}
