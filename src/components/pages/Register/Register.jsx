@@ -11,8 +11,6 @@ import * as yup from 'yup';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as Yup from "yup";
 import Swal from 'sweetalert2'
-import axios from 'axios';
-import Login from "../Login/Login";
 import {useNavigate} from "react-router";
 import api from "../../../API/Auth/auth"
 
@@ -72,8 +70,22 @@ const validationSchema = yup.object({
 
 const Register = () => {
 
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
     const navigate = useNavigate();
+    const [isLoggedIn] = React.useState(localStorage.getItem("token"));
+
+    React.useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/")
+        }
+    }, []);
+
+
+
+
+
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -98,8 +110,6 @@ const Register = () => {
           }
 
             api.SignUp(data).then(res => {
-                    console.log(res);
-                    setIsLoggedIn(true);
                     navigate("/login")
                 })
                 .catch(err => {

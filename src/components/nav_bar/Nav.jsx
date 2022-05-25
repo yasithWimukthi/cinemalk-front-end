@@ -17,7 +17,7 @@ const Navigation = () => {
     const [expand, setexpand] = React.useState(false);
     const [pathstate, setpathstate] = React.useState('#home');
     const[user,setUser] = React.useState(localStorage.getItem("token"));
-
+    const[type,setType] = React.useState(localStorage.getItem("type"));
     window.onscroll = function () {
         if (window.pageYOffset === 0) {
             setpathstate('#home');
@@ -40,11 +40,18 @@ const Navigation = () => {
 
         localStorage.clear();
         setUser(null)
-        navigate("/login")
+        window.location.href="/login"
     }
 
     const booking = ()=>{
-        navigate("/reservations")
+        window.location.href="/reservations"
+    }
+
+    const dash = ()=>{
+        navigate("/dash-board/movies")
+    }
+    const home = ()=>{
+        navigate("/")
     }
 
     return (
@@ -63,7 +70,7 @@ const Navigation = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto" defaultActiveKey="#home" id="items">
                         <Nav.Item>
-                            <Nav.Link onClick={(() => setexpand(false), () => setpathstate('#home'))}>
+                            <Nav.Link onClick={home}>
                                 <p /> Home
                             </Nav.Link>
                         </Nav.Item>
@@ -72,11 +79,15 @@ const Navigation = () => {
                                 <p /> Movies
                             </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {type!=="admin"?(<Nav.Item>
                             <Nav.Link onClick={booking}>
                                 <p />  Bookings
                             </Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item>):(<Nav.Item>
+                            <Nav.Link onClick={dash}>
+                                <p />  DashBoard
+                            </Nav.Link>
+                        </Nav.Item>)}
                         {user?( 
                         <>
                         <Nav.Item>

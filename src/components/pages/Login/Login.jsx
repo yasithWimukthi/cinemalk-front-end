@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import Swal from "sweetalert2";
 import api from "../../../API/Auth/auth";
 
@@ -65,6 +64,15 @@ const validationSchema = yup.object({
  */
 const Login = () => {
   const navigate = useNavigate();
+  const [isLoggedIn] = React.useState(localStorage.getItem("token"));
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/")
+    }
+  }, []);
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -87,6 +95,8 @@ const Login = () => {
           localStorage.setItem("user_id", res.data.userId);
           localStorage.setItem("type", res.data.type);
           navigate("/");
+
+
         })
         .catch((err) => {
           console.log(err);

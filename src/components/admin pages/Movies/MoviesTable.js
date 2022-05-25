@@ -2,11 +2,12 @@ import './MovieList.css';
 import { Modal, Form, Input, Button, InputNumber, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { DatePicker, Space } from 'antd';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { getMovies, getMovieById, deleteMovie, updateMovie } from '../../../API/Admin pages/MoviesAPI';
 import AddNewMovieForm from './AddNewMovieForm';
+import {useNavigate} from "react-router";
 
 
 const Movies = () => {
@@ -16,6 +17,10 @@ const Movies = () => {
 function handleDateInput(date, dateString) {
   console.log(date, dateString);
 }
+
+    const navigate = useNavigate();
+    const [isLoggedIn] = React.useState(localStorage.getItem("type"));
+
 
     let itemCount = 0;
     const { TextArea } = Input;
@@ -59,7 +64,17 @@ function handleDateInput(date, dateString) {
     }
 
     useEffect(() => {
-        getAllMovies(); //details of all Movies will be fetched when component renders for the first time
+
+        if(isLoggedIn!=="admin")
+        {
+            navigate("/")
+        }else
+        {
+            getAllMovies();
+        }
+
+
+         //details of all Movies will be fetched when component renders for the first time
     }, []);
 
     //re-render the component everytime when user select a new theator from the table to edit
