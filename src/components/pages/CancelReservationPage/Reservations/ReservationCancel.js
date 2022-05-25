@@ -10,7 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 //import res from "./reservations.json";
-import {deleteReservation,getReservations,} from "../../../../API/Reservation pages/ReservationCancelAPI";
+import {deleteReservation, getReservationsByUserId} from "../../../../API/Reservation pages/ReservationCancelAPI";
 
 const ReservationCancel = () => {
   const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,6 +18,7 @@ const ReservationCancel = () => {
   });
 
   const [loadedReservations, setLoadedReservations] = useState([]);
+  const [customerDetails, setCustomerDetails] = useState({});
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -30,7 +31,7 @@ const ReservationCancel = () => {
   };
 
   const handleDelete = (id) => {
-    deleteReservation("/reservation/", id)
+    deleteReservation("/api/reservations/", id)
       .then((res) => {
         console.log("ress", res.data);
         window.location.reload();
@@ -47,10 +48,13 @@ const ReservationCancel = () => {
   }, []);
 
   // Retrieve reservation data from backend
+  const uid = localStorage.getItem('user_id');
+
   const getAllReservations = () => {
-    getReservations("/reservation")
+    getReservationsByUserId("/api/reservations/", uid)
       .then((res) => {
-        setLoadedReservations(res.data.data);
+        setLoadedReservations(res.data.data.bookings);
+        setCustomerDetails(res.data.data)
       })
       .catch((err) => {
         console.log(err);
@@ -85,12 +89,12 @@ const ReservationCancel = () => {
           {loadedReservations.map((reservation) => (
             <tr key={reservation._id}>
               <td>{reservation._id}</td>
-              <td> {reservation.cusName}</td>
+              <td> {customerDetails.firstName+" "+customerDetails.lastName}</td>
               <td>{reservation.movieName}</td>
               <td>{reservation.theater}</td>
-              <td>{reservation.date}</td>
-              <td>{reservation.showTime}</td>
-              <td>{reservation.seats}</td>
+              <td>{reservation.bookingDate}</td>
+              <td>{reservation.bookedTime}</td>
+              <td>{reservation.noOfTickets}</td>
               <td>
                 <center>
                   {" "}
