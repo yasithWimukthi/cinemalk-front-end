@@ -3,10 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import CartItem from "./CartItem";
 import Swal from 'sweetalert2'
 import "./cart.scss";
-import { getCartByUserId, removeFromCart } from "../../../API/Customer pages/CartAPI";
+import { clearCart, getCartByUserId, removeFromCart } from "../../../API/Customer pages/CartAPI";
 import { Pay,PayMobile } from "../../../API/Customer pages/paymentApi";
 import {useNavigate} from "react-router";
-
 
 const Cart = () => {
 
@@ -94,14 +93,26 @@ const Cart = () => {
         .then((res) => {
 
         }).then(()=>{
-      Swal.fire(
-          'Payment is successful!',
-          '',
-          'success'
-      )
-    })
+          //clear cart
+        }).then(()=>{
+            Swal.fire(
+                'Payment is successful!',
+                '',
+                'success'
+            )
+        })
         .catch((err) => {
           console.log(err);
+        }).finally(() => {
+          //clear cart 
+          clearCart('/api/cart/clear-cart/', uid)
+            .then((res) => {
+              //redirrect to bookings pg
+              navigate('/reservations');
+            })
+            .catch((err) => {
+            console.log(err);
+          })
         })
 
 
@@ -131,6 +142,16 @@ const Cart = () => {
     })
         .catch((err) => {
           console.log(err);
+        }).finally(() => {
+          //clear cart 
+          clearCart('/api/cart/clear-cart/', uid)
+            .then((res) => {
+              //redirrect to bookings pg
+              navigate('/reservations');
+            })
+            .catch((err) => {
+            console.log(err);
+          })
         })
 
 

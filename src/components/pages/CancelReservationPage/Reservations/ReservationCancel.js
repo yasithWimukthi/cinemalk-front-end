@@ -24,8 +24,10 @@ const ReservationCancel = () => {
   const [loadedReservations, setLoadedReservations] = useState([]);
   const [customerDetails, setCustomerDetails] = useState({});
   const [open, setOpen] = React.useState(false);
+  const [resId, setResId] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
+    setResId(id);
     setOpen(true);
   };
 
@@ -35,6 +37,7 @@ const ReservationCancel = () => {
   };
 
   const handleDelete = (id) => {
+    console.log('del id', id);
     deleteReservation("/api/reservations/", id)
       .then((res) => {
         console.log("ress", res.data);
@@ -108,7 +111,7 @@ const ReservationCancel = () => {
                     variant="contained"
                     color="error"
                     startIcon={<DeleteIcon />}
-                    onClick={handleClickOpen}
+                    onClick={() => {handleClickOpen(reservation._id)}}
                   >
                     Delete
                   </Button>
@@ -134,7 +137,7 @@ const ReservationCancel = () => {
                   </DialogContent>
                   <DialogActions>
                     <Button
-                      onClick={() => handleDelete(reservation._id)}
+                      onClick={() => handleDelete(resId)}
                       color="error"
                     >
                       Delete
