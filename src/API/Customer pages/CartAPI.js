@@ -10,4 +10,4 @@ export const addToCart = (uri, data) => postRequest(BASE_URL, uri, data);
 
 export const updateTheater = (uri, id, data) => updateRequest(BASE_URL, uri, id, data);
 
-export const deleteTheater = (uri, id) => deleteRequest(BASE_URL, uri, id);
+export const removeFromCart = (uri, id) => deleteRequest(BASE_URL, uri, id);
