@@ -1,15 +1,17 @@
 import './MovieList.css';
 import {Modal, Form, Input, Button, InputNumber} from 'antd';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { getTheaters, getTheaterById, deleteTheater, updateTheater } from '../../../API/Admin pages/TheatersAPI';
 import AddNewTheaterForm from './AddNewTheaterForm';
+import {useNavigate} from "react-router";
 
 
 const Theaters = () => {
     const [form] = Form.useForm();
-
+    const navigate = useNavigate();
+    const [isLoggedIn] = React.useState(localStorage.getItem("type"));
     let itemCount = 0;
     const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
@@ -50,7 +52,14 @@ const Theaters = () => {
     }
 
     useEffect(() => {
-        getAllTheaters(); //details of all theaters will be fetched when component renders for the first time
+
+        if(isLoggedIn!=="admin")
+        {
+            navigate("/")
+        }else
+        {
+            getAllTheaters();
+        } //details of all theaters will be fetched when component renders for the first time
     }, []);
 
     //re-render the component everytime when user select a new theator from the table to edit

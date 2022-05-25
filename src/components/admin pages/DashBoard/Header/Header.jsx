@@ -7,8 +7,14 @@ import "./Header.scss"
 
 
 
+
 const Header = ({ handleLeftDrawerToggle }) => {
     const theme = useTheme();
+
+    const logOut = () =>{
+        localStorage.clear();
+        window.location.href="/login"
+    }
 
     return (
         <>
@@ -52,7 +58,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 2 }} />
 
-            <button  className="logBtn" >Logout</button>
+            <button  className="logBtn" onClick={logOut}>Logout</button>
 
         </>
     );

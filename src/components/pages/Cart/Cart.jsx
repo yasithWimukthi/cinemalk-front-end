@@ -4,16 +4,22 @@ import CartItem from "./CartItem";
 import Swal from 'sweetalert2'
 import "./cart.scss";
 import { getCartByUserId, removeFromCart } from "../../../API/Customer pages/CartAPI";
+import { Pay,PayMobile } from "../../../API/Customer pages/paymentApi";
+import {useNavigate} from "react-router";
 
 
 const Cart = () => {
+
+  const navigate = useNavigate();
+  const [isLoggedIn] = React.useState(localStorage.getItem("token"));
   let totalNoOfBookings = 0;
   const [isPayFromCard, setIsPayFromCard] = useState(false);
   const [isPayFromMobile, setIsPayFromMobile] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartDetails, setCartDetails] = useState({});
   const [totalNoOfTickets, setTotalNoOfTickets] = useState(0);
-
+  const[payment,setPayment] = useState({});
+  const[mobile,setMobile] = useState({});
   const uid = localStorage.getItem('user_id');
 
       // fetch theater details from backend theater service
@@ -35,7 +41,14 @@ const Cart = () => {
       }
 
     useEffect(() => {
-      getcartItems(); //details of all theaters will be fetched when component renders for the first time
+
+      if (!isLoggedIn) {
+        navigate("/login")
+      }
+      else{
+        getcartItems();
+      }
+      //details of all theaters will be fetched when component renders for the first time
     }, []);
   
     const handleDelete = (id) => {
@@ -52,39 +65,89 @@ const Cart = () => {
 
   const showPayFromCard = () => {
     setIsPayFromCard(true);
-  };
-
-
-  const hidePayFromCard = () => {
-    setIsPayFromCard(false);
-  };
-
-  const showPayFromMobile = () => {
-    setIsPayFromMobile(true);
-  };
-
-
-  const hidePayFromMobile = () => {
     setIsPayFromMobile(false);
   };
 
-  const payWithCard = (e) => {
-    e.preventDefault();
-    Swal.fire(
-        'Payment is successful!',
-        '',
-        'success'
-    )
-  }
 
-    const payWithMobile = (e) => {
-      e.preventDefault();
+
+  const showPayFromMobile = () => {
+    setIsPayFromMobile(true);
+    setIsPayFromCard(false);
+  };
+
+
+
+
+  const payWithCard = (event) => {
+    event.preventDefault();
+
+    const data= {
+      user_id:uid,
+      holder:payment.holder,
+      number:payment.number,
+      date:payment.date,
+      cvv:payment.cvv,
+      total:cartDetails.total
+    }
+
+    Pay("/api/pay", data)
+        .then((res) => {
+
+        }).then(()=>{
       Swal.fire(
           'Payment is successful!',
           '',
           'success'
       )
+    })
+        .catch((err) => {
+          console.log(err);
+        })
+
+
+
+  }
+
+  const payWithMobile = (event) => {
+    event.preventDefault();
+
+    const data= {
+      user_id:uid,
+      owner:mobile.owner,
+      phone:mobile.phone,
+      total:cartDetails.total
     }
+
+
+    PayMobile("/api/payMobile", data)
+        .then((res) => {
+
+        }).then(()=>{
+      Swal.fire(
+          'Payment is successful!',
+          '',
+          'success'
+      )
+    })
+        .catch((err) => {
+          console.log(err);
+        })
+
+
+  }
+
+
+
+  const handleChange=(event)=>{
+    setPayment({ ...payment, [event.target.name]: event.target.value })
+  }
+
+  const handlemChange=(event)=>{
+    setMobile({ ...mobile, [event.target.name]: event.target.value })
+  }
+
+
+
 
   return (
     <>
@@ -125,51 +188,51 @@ const Cart = () => {
 
       {
         isPayFromCard && (
-        <div className="card mt-50 mb-50">
-          <div className="card-title mx-auto">
-            Pay From Card
-          </div>
-          <div className="nav">
-            <ul className="mx-auto">
-              <li><a href="#">Account</a></li>
-              <li className="active"><a href="#">Payment</a></li>
-            </ul>
-          </div>
-          <form onSubmit={payWithCard}>
-            <div className="row row-1">
-              <div className="col-2"><img className="img-fluid"
-                                          src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/></div>
-            </div>
-            <span id="card-header">Add new card:</span>
-            <div className="row-1">
-              <div className="row row-2">
-                <span id="card-inner">Card holder name</span>
+            <div className="card mt-50 mb-50">
+              <div className="card-title mx-auto">
+                Pay From Card
               </div>
-              <div className="row row-2">
-                <input type="text" placeholder="Bojan Viner"/>
+              <div className="nav">
+                <ul className="mx-auto">
+                  <li>Account</li>
+                  <li className="active">Payment</li>
+                </ul>
               </div>
-            </div>
-            <div className="row three">
-              <div className="col-7">
+              <form onSubmit={payWithCard}>
+                <div className="row row-1">
+                  <div className="col-2"><img className="img-fluid"
+                                              src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/></div>
+                </div>
+                <span id="card-header">Add new card:</span>
                 <div className="row-1">
                   <div className="row row-2">
-                    <span id="card-inner">Card number</span>
+                    <span id="card-inner" >Card holder name</span>
                   </div>
                   <div className="row row-2">
-                    <input type="text" placeholder="5134-5264-4"/>
+                    <input type="text"  name="holder" onChange={handleChange}/>
                   </div>
                 </div>
-              </div>
-              <div className="col-2">
-                <input type="text" placeholder="Exp. date"/>
-              </div>
-              <div className="col-2">
-                <input type="text" placeholder="CVV"/>
-              </div>
-            </div>
-            <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>
-          </form>
-        </div> )
+                <div className="row three">
+                  <div className="col-7">
+                    <div className="row-1">
+                      <div className="row row-2">
+                        <span id="card-inner">Card number</span>
+                      </div>
+                      <div className="row row-2">
+                        <input type="text"  name="number" onChange={handleChange}/>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-2">
+                    <input type="date" placeholder="Exp. date" name="date" onChange={handleChange}/>
+                  </div>
+                  <div className="col-2">
+                    <input type="text" placeholder="CVV" name="cvv" onChange={handleChange}/>
+                  </div>
+                </div>
+                <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>
+              </form>
+            </div> )
       }
 
       {
@@ -180,8 +243,8 @@ const Cart = () => {
                 </div>
                 <div className="nav">
                   <ul className="mx-auto">
-                    <li><a href="#">Account</a></li>
-                    <li className="active"><a href="#">Mobile Number</a></li>
+                    <li>Account</li>
+                    <li className="active">Mobile Number</li>
                   </ul>
                 </div>
                 <form onSubmit={payWithMobile}>
@@ -191,7 +254,7 @@ const Cart = () => {
                       <span id="card-inner">Owner name</span>
                     </div>
                     <div className="row row-2">
-                      <input type="text" placeholder="Bojan Viner"/>
+                      <input type="text" placeholder="Bojan Viner" name="owner" onChange={handlemChange}/>
                     </div>
                   </div>
                   <div className="row-1">
@@ -199,7 +262,7 @@ const Cart = () => {
                       <span id="card-inner">Mobile Number</span>
                     </div>
                     <div className="row row-2">
-                      <input type="text" placeholder="0714044488"/>
+                      <input type="text" placeholder="0714044488" name="phone" onChange={handlemChange}/>
                     </div>
                   </div>
                   <button type="submit" className="btn d-flex mx-auto"><b>Pay Now</b></button>

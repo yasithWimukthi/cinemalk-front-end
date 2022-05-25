@@ -2,15 +2,19 @@ import './MovieList.css';
 
 import { Modal, Form, Button, Select, TimePicker, InputNumber} from 'antd';
 import './MovieList.css';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Option} from "antd/es/mentions";
 import moment from "moment";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import axios from "axios";
+import {useNavigate} from "react-router";
 
 
 const TheaterDetails = () => {
+    const navigate = useNavigate();
+    const [isLoggedIn] = React.useState(localStorage.getItem("type"));
+
     const MySwal = withReactContent(Swal)
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
@@ -60,9 +64,15 @@ const TheaterDetails = () => {
     }
 
     useEffect(() => {
+        if(isLoggedIn!=="admin")
+        {
+            navigate("/")
+        }
+      else
+        {
         getAllTheaterDetails();
         getAllTheaters(); // fetch theater details from backend theater service
-        getAllMovies(); // fetch movie details from backend movie service
+        getAllMovies(); }// fetch movie details from backend movie service
     }, []);
 
 

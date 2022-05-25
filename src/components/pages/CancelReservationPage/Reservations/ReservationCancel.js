@@ -9,10 +9,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-//import res from "./reservations.json";
 import {deleteReservation, getReservationsByUserId} from "../../../../API/Reservation pages/ReservationCancelAPI";
+import {useNavigate} from "react-router";
 
 const ReservationCancel = () => {
+
+  const navigate = useNavigate();
+  const [isLoggedIn] = React.useState(localStorage.getItem("token"));
+
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -42,10 +46,7 @@ const ReservationCancel = () => {
       });
   };
 
-  const getData = () => {};
-  useEffect(() => {
-    getData();
-  }, []);
+
 
   // Retrieve reservation data from backend
   const uid = localStorage.getItem('user_id');
@@ -62,7 +63,12 @@ const ReservationCancel = () => {
   };
 
   useEffect(() => {
-    getAllReservations();
+    if (!isLoggedIn) {
+      navigate("/login")
+    }
+    else{
+      getAllReservations();
+    }
   }, []);
 
   return (
