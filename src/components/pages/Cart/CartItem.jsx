@@ -29,7 +29,7 @@ const CartItem = (props) => {
                 <Typography variant="body2">Theater: { props.bookingDetails.theater}</Typography>
                 <Typography variant="body2">Date:{ props.bookingDetails.bookingDate}</Typography>
                 <Typography variant="body2">Time:{ props.bookingDetails.bookedTime}</Typography>
-                <button className="remove-from-cart-btn">Remove</button>
+                <button className="remove-from-cart-btn" onClick={() => {props.handleRemove(props.bookingDetails._id)}}>Remove</button>
               </CardContent>
             </Col>
           </Row>

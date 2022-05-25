@@ -28,8 +28,8 @@ export default function MovieBooking(props) {
   const [isSubmit, setIsSubmit] = React.useState(false);
 
   const handleDateOnChange = (e) => {
-    const formattedDate = moment(e).format('DD/MM/YYYY');
-    setBookingDetails({ ...bookingDetails, bookingDate: formattedDate });
+    // const formattedDate = moment(e).format('DD/MM/YYYY');
+    setBookingDetails({ ...bookingDetails, bookingDate: e });
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
