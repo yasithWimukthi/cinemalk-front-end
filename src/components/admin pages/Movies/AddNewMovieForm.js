@@ -28,15 +28,17 @@ const AddNewMovieForm = (props) => {
     });
 
     const handleImgUpload = (e) => {
-        console.log('img', e.file);
-        setMovieDetails({ ...MovieDetails, image: e.file })
+        setMovieDetails({ ...MovieDetails, image: e.file.originFileObj })
     }
 
     const handleChange = (event) => {
         setMovieDetails({ ...MovieDetails, [event.target.name]: event.target.value })
     }
 
+
+
     const handleSubmit = (formValues) => {
+
         const newFormData = {
             title: formValues.title,
             release_date: MovieDetails.release_date,

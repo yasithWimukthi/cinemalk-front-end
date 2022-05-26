@@ -8,6 +8,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { getMovies, getMovieById, deleteMovie, updateMovie } from '../../../API/Admin pages/MoviesAPI';
 import AddNewMovieForm from './AddNewMovieForm';
 import {useNavigate} from "react-router";
+import EditMovieForm from "./EditMovies";
 
 
 const Movies = () => {
@@ -27,7 +28,7 @@ function handleDateInput(date, dateString) {
     const MySwal = withReactContent(Swal)
     const [isEditMovieModalVisible, setIsEditMovieModalVisible] = useState(false);
     const [isAddMovieModalVisible, setIsAddMovieModalVisible] = useState(false);
-
+    const [updateId,setUpdate]= useState("");
     const [loadedMovies, setLoadedMovies] = useState([]);
     const [selectedMovie, setDetailsForSelectedMovie] = useState({
         _id: '',
@@ -52,7 +53,7 @@ function handleDateInput(date, dateString) {
 
     // fetch Movie details from backend Movie service
     const getAllMovies = () => {
-        getMovies("/api/Movies")
+        getMovies("/api/movies/")
             .then((res) => {
             console.log('result', res.data);
             setLoadedMovies(res.data);
@@ -89,15 +90,10 @@ function handleDateInput(date, dateString) {
        }, [form, selectedMovie])
 
     const showEditMovieModal = (id) => {
-        //retrieve details of the selected Movie
-        getMovieById("/api/Movies/", id)
-            .then((res) => {
-                setDetailsForSelectedMovie(res.data.data);
-                setIsEditMovieModalVisible(true);
-            })
-            .catch((err) => {
-                console.log('err', err);
-            })        
+
+        setUpdate(id)
+        setIsEditMovieModalVisible(true);
+
     };
 
     const handleEditMovieModalCancel = () => {
@@ -247,78 +243,10 @@ function handleDateInput(date, dateString) {
             </div>
             {/*Movies table end*/}
 
-            {/*Edit Movie modal*/}
-            <Modal title="Edit Movie" visible={isEditMovieModalVisible} onCancel={handleEditMovieModalCancel} footer={null}>
-            {console.log('editt', selectedMovie)}
-                <Form
-                    form={form}
-                    name="basic"
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                    initialValues={{title: selectedMovie.title,
-                        release_date: selectedMovie.release_date,
-                        overview: selectedMovie.overview,
-                        genres: selectedMovie.genres}}
-                    onFinish={handleSubmit}
-                    onFinishFailed={onFinishFailed}
-                >
-                    <Form.Item
-                        label="Movie Name"
-                        name="name"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input Movie name!' }]}
-                    >
-                        <Input value={formData.title} onChange={handleChange}/>
-                    </Form.Item>
 
-                    <Form.Item
-                        label="Description"
-                        name="overview"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please select location!' }]}
-                    >
-                        <TextArea rows={3} placeholder="Cinema hall overview" value={formData.overview} onChange={handleChange}/>
-                    </Form.Item>
 
-                    <Form.Item
-                        label="Released Year"
-                        name="release_date"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please enter the seat count!' }]}
-                    >
-                        {/* <InputNumber style={{ width: '100%' }} value={formData.release_date} onChange={handleChange}/> */}
-                        <DatePicker onChange={handleDateInput} picker="year" />
-                    </Form.Item>
 
-                    <Form.Item
-                        label="Genres"
-                        name="genres"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please input genres number!' }]}
-                    >
-                        <Input value={formData.genres} onChange={handleChange}/>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Movie Banner"
-                        name="banner"
-                        tooltip="This is a required field"
-                        rules={[{ required: true, message: 'Please upload an image!' }]}
-                    >
-                        <Upload {...props}>
-                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                        </Upload>
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit" shape="round" size="large" >
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Modal>
-
+            {isEditMovieModalVisible ? <EditMovieForm id ={updateId} closeModal={handleEditMovieModalCancel} refreshMovieTable={getAllMovies}/> : null}
             {/**Add Movie modal */}
             {isAddMovieModalVisible ? <AddNewMovieForm closeModal={handleAddMovieModalCancel} refreshMovieTable={getAllMovies}/> : null}
         </div>

@@ -50,6 +50,7 @@ export const postRequest = (BASE_URL, uri, data) => {
   return new Promise((resolve, reject) => {
     axios
       .post(`${BASE_URL}${uri}`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
         params: {
           user_id: userID,
     }
