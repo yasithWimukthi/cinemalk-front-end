@@ -1,5 +1,5 @@
 import './MovieList.css';
-import { Modal, Form, Input, Button, InputNumber, Upload, message } from 'antd';
+import { Modal, Form, Input, Button, InputNumber, Upload, message, Avatar } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { DatePicker, Space } from 'antd';
 import React, {useEffect, useState} from "react";
@@ -223,7 +223,11 @@ function handleDateInput(date, dateString) {
                                         <tr key={Movie._id}>
                                             <td></td>
                                             <td>{itemCount++}</td>
-                                            <td>{Movie.title}</td>
+                                            <td >
+                                                <div style={{display:'flex',alignItems: 'center'}}>
+                                                <Avatar src={Movie.poster}  style={{marginRight:'10px'}}/>{Movie.title}
+                                                </ div>
+                                            </td>
                                             <td>{Movie.release_date}</td>
                                             <td>{Movie.overview}</td>
                                             <td>{Movie.genres}</td>
@@ -242,9 +246,6 @@ function handleDateInput(date, dateString) {
                 </div>
             </div>
             {/*Movies table end*/}
-
-
-
 
             {isEditMovieModalVisible ? <EditMovieForm id ={updateId} closeModal={handleEditMovieModalCancel} refreshMovieTable={getAllMovies}/> : null}
             {/**Add Movie modal */}

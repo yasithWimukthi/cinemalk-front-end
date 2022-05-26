@@ -23,7 +23,10 @@ const Navigation = () => {
             setpathstate('#home');
         }
     };
-
+    React.useEffect(() => {
+        setType(localStorage.getItem("type"))
+        setUser(localStorage.getItem("token"))
+    })
     React.useEffect(() => {
         const element = document.getElementById(pathstate);
         if (element) {

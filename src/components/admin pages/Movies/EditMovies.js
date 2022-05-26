@@ -39,9 +39,6 @@ const EditMovieForm = (props) => {
             })
     },[])
 
-
-
-
     const { TextArea } = Input;
     const MySwal = withReactContent(Swal)
 
