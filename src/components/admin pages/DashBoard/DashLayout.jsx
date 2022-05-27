@@ -11,8 +11,6 @@ import themes from '../../../assets/theme/index';
 export const drawerWidth = 260;
 const SET_MENU = '@customization/SET_MENU'
 
-
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     ...theme.typography.mainContent,
     ...(!open && {
@@ -107,10 +105,6 @@ const MainLayout = (props) => {
     );
 };
 
-
-
-
-
 const  FinalLayout = (props) => {
     return(
         <Provider store={store}>
@@ -121,12 +115,5 @@ const  FinalLayout = (props) => {
 
     )
 }
-
-
-
-
-
-
-
 
 export default FinalLayout;
