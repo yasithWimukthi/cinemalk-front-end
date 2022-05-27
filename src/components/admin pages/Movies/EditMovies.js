@@ -21,7 +21,8 @@ const EditMovieForm = (props) => {
                     title:   res.data.data.title,
                     release_date:   res.data.data.release_date,
                     overview:   res.data.data.overview,
-                    genres:   res.data.data.genres
+                    genres:   res.data.data.genres,
+                    poster:res.data.data.poster
                 }
 
 
@@ -124,6 +125,13 @@ const EditMovieForm = (props) => {
                     rules={[{ required: true, message: 'Please input genres (Use comma to separate each genre)!' }]}
                 >
                     <Input value={MovieDetails.genres} onChange={handleChange}/>
+                </Form.Item>
+
+                <Form.Item
+                    label="Poster"
+                    name="poster"
+                >
+                    <img style={{height:'100px', width:'100px',borderRadius:'5px'}} src={MovieDetails.poster} />
                 </Form.Item>
 
 
